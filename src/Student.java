@@ -119,16 +119,16 @@ public class Student {
 				finalOutput = true;
 			}
 		}
-		if(weight1Count.equals(0)) { //if only one weight given for assignments, is only assignment
-			weight1Average = 0.0; //sets to zero (var is null otherwise)
-			weightFactor = 1.0; //assignment gets full weight if is only one
-		}
-		weight1Average = (weight1Total / weight1Count) * weightFactor1;
-		weightAverage = (weightTotal / weightCount) * weightFactor;
-		unweightAverage = unweightTotal / unweightCount;
 		if(finalOutput == true) { //if assignments are not weighted returns unweightAverage
+			unweightAverage = unweightTotal / unweightCount;
 			finalGradeVar = unweightAverage;
 		}else {
+			if(weight1Count.equals(0)) { //if only one weight given for assignments, is only assignment
+				weight1Count = 1; //sets to zero (var is null otherwise)
+				weightFactor = 1.0; //assignment gets full weight if is only one
+			}
+			weight1Average = (weight1Total / weight1Count) * weightFactor1;
+			weightAverage = (weightTotal / weightCount) * weightFactor;
 			finalGradeVar = weightAverage + weight1Average;
 		}
 		Score theGrade = new Score(finalGradeVar); //creates score

@@ -57,8 +57,10 @@ public class ClassGradebook {
 			if(iter.equals(inputWeight)) {
 				return true;
 			}else if(iter + inputWeight > 1) {
+				System.out.println("Assignment weights cannot add up to more than 1");
 				return false;
 			}else if(iter + inputWeight < 1) {
+				System.out.println("Assignment weights must add up to at least 1");
 				return false;
 			}else if(iter + inputWeight == 1) {
 				weightList.add(inputWeight);
