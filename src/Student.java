@@ -86,22 +86,22 @@ public class Student {
 	
 	
 	public Score getGrade() { //returns a grade as .xx, made to be formated as percent
-		double weightAverage = 0;
-		double weightCount = 0;
-		double weightTotal = 0;
-		double weight1Count = 0;
-		double weight1Average = 0;
-		double weight1Total = 0;
-		double unweightAverage = 0;
-		double unweightCount = 0;
-		double unweightTotal = 0;
-		double weightFactor = 0;
-		double weightFactor1 = 0;
+		Double weightAverage = 0.0;
+		Integer weightCount = 0;
+		Double weightTotal = 0.0;
+		Integer weight1Count = 0;
+		Double weight1Average = 0.0;
+		Double weight1Total = 0.0;
+		Double unweightAverage = 0.0;
+		Integer unweightCount = 0;
+		Double unweightTotal = 0.0;
+		Double weightFactor = 0.0;
+		Double weightFactor1 = 0.0;
 		Boolean finalOutput = false;
-		double finalGradeVar;
+		Double finalGradeVar;
 		for(Map.Entry<Integer, Assignment> entry : this.assignmentMap.entrySet()) { //loops through entries in map
 			if(entry.getValue().finalWeightBool.equals(true)) { //sees if assignment is weighted and loops to find weight value if so
-				if(weightCount == 0) {
+				if(weightCount.equals(0)) {
 					weightFactor = entry.getValue().finalWeight; //gets weight value
 					weightCount ++;
 					weightTotal += entry.getValue().getScore().numGrade; //adds score to running total
@@ -125,9 +125,11 @@ public class Student {
 		if(finalOutput == true) { //if assignments are not weighted returns unweightAverage
 			finalGradeVar = unweightAverage;
 		}else {
+			if(weight1Count.equals(0)) {
+				weight1Average = 0.0;
+			}
 			finalGradeVar = weightAverage + weight1Average;
 		}
-		
 		Score theGrade = new Score(finalGradeVar); //creates score
 		this.grade = theGrade; //adds value to student's overall grade
 		return this.grade;
