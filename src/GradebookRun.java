@@ -90,7 +90,7 @@ public class GradebookRun {
 							temp.getCourse();
 						
 						}else if(condensedInput.equals("changecoursename")) {
-							temp.ch
+							temp.changeCourseName();
 						
 						}else if(condensedInput.equals("removestudent")) {
 							temp.removeStudent();
