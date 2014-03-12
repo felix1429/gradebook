@@ -48,16 +48,25 @@ public class ClassGradebook {
 		studentCount --;
 	}
 	
-	/*
-	public void addWeightFactor(Double inputWeight) {
-		Double currentTotal;
+	public Boolean addWeightFactor(Double inputWeight) {
+		if(weightList.isEmpty()) {
+			weightList.add(inputWeight);
+			return true;
+		}
 		for(Double iter : weightList) {
-			if(iter.equals(inputWeight) {
-			 return true;
+			if(iter.equals(inputWeight)) {
+				return true;
+			}else if(iter + inputWeight > 1) {
+				return false;
+			}else if(iter + inputWeight < 1) {
+				return false;
+			}else if(iter + inputWeight == 1) {
+				weightList.add(inputWeight);
+				return true;
 			}
-		 }
+		}
+		return false;
 	}
-	*/
 	
 	public String getStudents() {
 		String output = "";
