@@ -21,10 +21,9 @@ public class Student {
 	}
 	
 	
-	private double removeLeadingZeros(Double input) {
+	private String removeLeadingZeros(Double input) { //regex that removes leading zeros from double, applied to assignment weights
 		String strInput = Double.toString(input);
-		strInput.replaceFirst("^0+(?!$)", "");
-		return Double.parseDouble(strInput);
+		return strInput.replaceFirst("^0+(?!$)", "");
 	}
 	
 	
@@ -167,7 +166,7 @@ public class Student {
 			output = "No assignments added";
 		}else {
 			for(Assignment a : assignmentMap.values()) { //gets score of each assignment
-				assignmentOutput += "Assignment " + assignmentCount + (ClassGradebook.isWeighted ? (" (" + (double)Math.round(a.theAssignmentWeight.weightFactor * 100) / 100 + ")") : "") + ": " //if weighted, prints weight factor
+				assignmentOutput += "Assignment " + assignmentCount + (ClassGradebook.isWeighted ? (" (" + removeLeadingZeros((double)Math.round(a.theAssignmentWeight.weightFactor * 100) / 100) + ")") : "") + ": " //if weighted, prints weight factor
 					+ a.assignmentScore.percentGrade + ", " + a.assignmentScore.letterGrade.gradePronoun + " " 
 					+ a.assignmentScore.letterGrade.actualLetter + "\n"; 
 				assignmentCount ++;
