@@ -21,6 +21,13 @@ public class Student {
 	}
 	
 	
+	private double removeLeadingZeros(Double input) {
+		String strInput = Double.toString(input);
+		strInput.replaceFirst("^0+(?!$)", "");
+		return Double.parseDouble(strInput);
+	}
+	
+	
 	public boolean testScore(String startScore) { //sees if string is valid score
 		String tempNumStr = "";
 		Integer firstInt = 0;
