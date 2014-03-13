@@ -1,5 +1,4 @@
 import java.util.*;
-// import java.util.Map.Entry;
 
 
 public class ClassGradebook {
@@ -21,6 +20,11 @@ public class ClassGradebook {
 		ClassGradebook.isWeighted = startWeight;
 	}	
 
+	private String removeLeadingZeros(Double input) { //regex that removes leading zeros from double, applied to assignment weights
+		String strInput = Double.toString(input);
+		return strInput.replaceFirst("^0+(?!$)", "");
+	}
+	
 	public void changeCourseName(String newName) {
 		this.courseName = newName;
 	}
@@ -53,14 +57,16 @@ public class ClassGradebook {
 			weightList.add(inputWeight);
 			return true;
 		}
-		for(Double iter : weightList) {
+		for(Double iter : weightList) { //iterates over input weights
 			if(iter.equals(inputWeight)) {
 				return true;
 			}else if(iter + inputWeight > 1) {
-				System.out.println("Assignment weights cannot add up to more than 1");
+				System.out.println("Assignment weights cannot add up to more than 1\n"
+						+ "Weights already in use are " + removeLeadingZeros(iter) + " and " + removeLeadingZeros((double)Math.round((1 - iter) * 100) / 100));
 				return false;
 			}else if(iter + inputWeight < 1) {
-				System.out.println("Assignment weights cannot add up to less than 1");
+				System.out.println("Assignment weights cannot add up to less than 1\n"
+						+ "Weights already in use are " + removeLeadingZeros(iter) + " and " + removeLeadingZeros((double)Math.round((1 - iter) * 100) / 100));
 				return false;
 			}else if(iter + inputWeight == 1) {
 				weightList.add(inputWeight);
