@@ -8,10 +8,9 @@ public class ClassGradebook {
 	public Scanner sc;
 	public String scanInput = "";
 	public Student studentVar;
-	Collection<Double> WeightFactorSet = new HashSet<Double>(0);
+	public Double weightFactorNum = null;
 	public static Boolean isWeighted;
 	public Map<String, Student> studentMap = new HashMap<String, Student>(); //creates map of students
-	public List<Double> weightList = new ArrayList<Double>(2);
 
 	public ClassGradebook(String courseName, String owner, Boolean startWeight) {
 		ClassGradebook.owner = owner;
@@ -53,25 +52,22 @@ public class ClassGradebook {
 	}
 	
 	public Boolean addWeightFactor(Double inputWeight) {
-		if(weightList.isEmpty()) {
-			weightList.add(inputWeight);
+		if(weightFactorNum == null) {
+			weightFactorNum = inputWeight;
 			return true;
 		}
-		for(Double iter : weightList) { //iterates over input weights
-			if(iter.equals(inputWeight)) {
-				return true;
-			}else if(iter + inputWeight > 1) {
-				System.out.println("Assignment weights cannot add up to more than 1\n"
-						+ "Weights already in use are " + removeLeadingZeros(iter) + " and " + removeLeadingZeros((double)Math.round((1 - iter) * 100) / 100));
-				return false;
-			}else if(iter + inputWeight < 1) {
-				System.out.println("Assignment weights cannot add up to less than 1\n"
-						+ "Weights already in use are " + removeLeadingZeros(iter) + " and " + removeLeadingZeros((double)Math.round((1 - iter) * 100) / 100));
-				return false;
-			}else if(iter + inputWeight == 1) {
-				weightList.add(inputWeight);
-				return true;
-			}
+		if(weightFactorNum.equals(inputWeight)) {
+			return true;
+		}else if(weightFactorNum + inputWeight > 1) {
+			System.out.println("Assignment weights cannot add up to more than 1\n"
+					+ "Weights already in use are " + removeLeadingZeros(weightFactorNum) + " and " + removeLeadingZeros((double)Math.round((1 - weightFactorNum) * 100) / 100));
+			return false;
+		}else if(weightFactorNum + inputWeight < 1) {
+			System.out.println("Assignment weights cannot add up to less than 1\n"
+					+ "Weights already in use are " + removeLeadingZeros(weightFactorNum) + " and " + removeLeadingZeros((double)Math.round((1 - weightFactorNum) * 100) / 100));
+			return false;
+		}else if(weightFactorNum + inputWeight == 1) {
+			return true;
 		}
 		return false;
 	}
