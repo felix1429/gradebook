@@ -30,6 +30,16 @@ public class EditClassGradebook {
 				+ " and get all the course\'s information by typing \"get all info\"\n"
 				+ "For help type \"help\"\n"
 				+ "Exit by typing \"exit\"");
+		
+		System.out.println("You can now add the initial batch of students.  Type \"done\" when finished");
+		while(true) {
+			scanInput= sc.nextLine();
+			if(scanInput.equals("done")) {
+				break;
+			}else {
+				addStudent();
+			}
+		}
 	}
 	
 	private void sleepLocal() { //sleeps program so that nothing can be input until printing is finished
