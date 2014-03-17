@@ -31,15 +31,17 @@ public class EditClassGradebook {
 				+ "For help type \"help\"\n"
 				+ "Exit by typing \"exit\"");
 		
-		System.out.println("You can now add the initial batch of students.  Type \"done\" when finished");
+		System.out.println("You can now add the initial batch of students.  Type \"done\" when finished"); //prompts user to input students
 		while(true) {
-			scanInput= sc.nextLine();
-			if(scanInput.equals("done")) {
-				break;
+			addStudent();
+			System.out.println("Add another (y/n)?");
+			scanInput = sc.nextLine();
+			if(GradebookRun.yesOrNo(scanInput)) { //prompts for y or n
+				continue;
 			}else {
-				addStudent();
+				break;
 			}
-		}
+		}	
 	}
 	
 	private void sleepLocal() { //sleeps program so that nothing can be input until printing is finished

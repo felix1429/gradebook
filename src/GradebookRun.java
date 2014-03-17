@@ -3,7 +3,7 @@ import java.util.*;
 
 public class GradebookRun {
 	
-	private static Boolean yesOrNo(String input) {
+	public static Boolean yesOrNo(String input) {
 		while(true) { //loops until either y or n is input
 			if(input.equals("y") || input.equals("Y"))	{
 				return true;
@@ -32,7 +32,7 @@ public class GradebookRun {
 			theOwner = sc.nextLine();
 			Gradebook gradeBk = new Gradebook(theOwner);
 			System.out.println("You can now add a course by typing \"add course\" and add information by typing \"add information\".\n"
-					+ "You can get the information of a course by typing \"get course info\" the name of all courses input\n"
+					+ "You can get the information of a course by typing \"get course info\" and get the name of all courses input\n"
 					+ "by typing \"get courses\"");
 			while(true) {
 				sleepLocal();
