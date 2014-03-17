@@ -8,7 +8,7 @@ public class ClassGradebook {
 	public Scanner sc;
 	public String scanInput = "";
 	public Student studentVar;
-	public Double weightFactorNum = null;
+	public List<Double> weightGroup = new ArrayList<Double>();
 	public static Boolean isWeighted;
 	public Map<String, Student> studentMap = new HashMap<String, Student>(); //creates map of students
 
@@ -22,6 +22,14 @@ public class ClassGradebook {
 	private String removeLeadingZeros(Double input) { //regex that removes leading zeros from double, applied to assignment weights
 		String strInput = Double.toString(input);
 		return strInput.replaceFirst("^0+(?!$)", "");
+	}
+	
+	private Double weightGroupSum() {
+		Double total = 0.0;
+		for(Double iter : weightGroup) {
+			total += iter;
+		}
+		return total;
 	}
 	
 	public void changeCourseName(String newName) {
@@ -52,21 +60,29 @@ public class ClassGradebook {
 	}
 	
 	public Boolean addWeightFactor(Double inputWeight) {
-		if(weightFactorNum == null) {
-			weightFactorNum = inputWeight;
+		if(weightGroup.isEmpty()) {
+			weightGroup.add(inputWeight);
 			return true;
 		}
-		if(weightFactorNum.equals(inputWeight)) {
+		if(weightGroup.contains(inputWeight)) {
 			return true;
-		}else if(weightFactorNum + inputWeight > 1) {
+		}else if(weightGroupSum() + inputWeight > 1) {
 			System.out.println("Assignment weights cannot add up to more than 1\n"
-					+ "Weights already in use are " + removeLeadingZeros(weightFactorNum) + " and " + removeLeadingZeros((double)Math.round((1 - weightFactorNum) * 100) / 100));
+					+ "Weights already in use are ");
+					for(int counter = 0;counter <= weightGroup.size();counter ++) {
+						System.out.println(removeLeadingZeros((double)Math.round((1 - weightGroup.get(counter)) * 100) / 100) + " ");
+					}
 			return false;
-		}else if(weightFactorNum + inputWeight < 1) {
-			System.out.println("Assignment weights cannot add up to less than 1\n"
-					+ "Weights already in use are " + removeLeadingZeros(weightFactorNum) + " and " + removeLeadingZeros((double)Math.round((1 - weightFactorNum) * 100) / 100));
-			return false;
-		}else if(weightFactorNum + inputWeight == 1) {
+		}else if(weightGroupSum() + inputWeight < 1) {
+			weightGroup.add(inputWeight);
+			System.out.println("Assignment weights still add up to less than 1\n"
+					+ "You will need to add another weight value so that the total adds up to 1"
+					+ "Weights already in use are ");
+					for(int counter = 0;counter < weightGroup.size();counter ++) {
+						System.out.print(removeLeadingZeros((double)Math.round((1 - weightGroup.get(counter)) * 100) / 100) + " ");
+					}
+			return true;
+		}else if(weightGroupSum() + inputWeight == 1) {
 			return true;
 		}
 		return false;

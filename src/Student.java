@@ -166,11 +166,11 @@ public class Student {
 			output = "No assignments added";
 		}else {
 			for(Assignment a : assignmentMap.values()) { //gets score of each assignment
-				assignmentOutput += "Assignment " + assignmentCount + ", \"" + a.name + "\""
-					+ (ClassGradebook.isWeighted ? (" (" + removeLeadingZeros((double)Math.round(a.theAssignmentWeight.weightFactor * 100) / 100) + ")") : "") + ": " //if weighted, prints weight factor
-					+ a.assignmentScore.percentGrade + ", " + a.assignmentScore.letterGrade.gradePronoun + " " 
-					+ a.assignmentScore.letterGrade.actualLetter + "\n"; 
-				assignmentCount ++;
+				assignmentOutput += "Assignment " + assignmentCount + ", \"" + a.name + "\"" //gets assignment number and name
+					+ (ClassGradebook.isWeighted ? (" (" + removeLeadingZeros((double)Math.round(a.theAssignmentWeight.weightFactor * 100) / 100) + ")") : "") + ": " //if weighted, gets weight factor
+					+ a.assignmentScore.percentGrade + ", " + a.assignmentScore.letterGrade.gradePronoun + " " //gets percent score and pronoun
+					+ a.assignmentScore.letterGrade.actualLetter + "\n";  //gets letter grade
+				assignmentCount ++; //increments counter
 			}
 			this.grade = this.getGrade();
 			gradeOutput = this.grade.percentGrade + "\n"; //converts to string make next line easier
