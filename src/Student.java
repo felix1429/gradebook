@@ -79,12 +79,12 @@ public class Student {
 	}	
 
 	
-	public void addAssignment(String startScore, Boolean weightOrNot, Double startWeight) { // score must be formated as x/y
+	public void addAssignment(String startScore, String startName, Boolean weightOrNot, Double startWeight) { // score must be formated as x/y
 		scoreVar = getScore(startScore); //gets score
 		if(!weightOrNot) { //if not weighted overrides argument and sets weight to one
 			startWeight = 1.0;
 		}
-		Assignment theNewOne = new Assignment(scoreVar, this.testCount, weightOrNot, startWeight); //creates new assignment
+		Assignment theNewOne = new Assignment(scoreVar, this.testCount, startName, weightOrNot, startWeight); //creates new assignment
 		this.assignmentMap.put(this.testCount, theNewOne); //adds assignment with number and score
 		this.testCount ++; //increments variable that keeps track of what number the assignment is for the student
 		this.grade = this.getGrade();
@@ -166,7 +166,8 @@ public class Student {
 			output = "No assignments added";
 		}else {
 			for(Assignment a : assignmentMap.values()) { //gets score of each assignment
-				assignmentOutput += "Assignment " + assignmentCount + (ClassGradebook.isWeighted ? (" (" + removeLeadingZeros((double)Math.round(a.theAssignmentWeight.weightFactor * 100) / 100) + ")") : "") + ": " //if weighted, prints weight factor
+				assignmentOutput += "Assignment " + assignmentCount + ", \"" + a.name + "\""
+					+ (ClassGradebook.isWeighted ? (" (" + removeLeadingZeros((double)Math.round(a.theAssignmentWeight.weightFactor * 100) / 100) + ")") : "") + ": " //if weighted, prints weight factor
 					+ a.assignmentScore.percentGrade + ", " + a.assignmentScore.letterGrade.gradePronoun + " " 
 					+ a.assignmentScore.letterGrade.actualLetter + "\n"; 
 				assignmentCount ++;

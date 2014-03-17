@@ -1,14 +1,16 @@
 public class Assignment { //class for assignments for Student class
-	Score assignmentScore;
-	Integer assignmentNumber;
-	AssignmentWeight theAssignmentWeight;
-	Boolean setWeight;
-	Double finalWeight;
-	Boolean finalWeightBool;
+	public Score assignmentScore;
+	public Integer assignmentNumber;
+	public String name;
+	public AssignmentWeight theAssignmentWeight;
+	public Boolean setWeight;
+	public Double finalWeight;
+	public Boolean finalWeightBool;
 	
-	public Assignment(Score inputScore, Integer startNumber, Boolean startSetWeight, Double startingWeight) {
+	public Assignment(Score inputScore, Integer startNumber, String startName, Boolean startSetWeight, Double startingWeight) {
 		this.assignmentScore = inputScore;
 		this.assignmentNumber = startNumber;
+		this.name = startName;
 		if(startSetWeight) {
 			finalWeight = startingWeight;
 			finalWeightBool = true;

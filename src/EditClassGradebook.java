@@ -189,6 +189,8 @@ public class EditClassGradebook {
 			Boolean boolVar;
 			Integer i = 0; //counter to place scores in array
 			String[] scoreArray;
+			System.out.println("What is the name of the assignment?");
+			stringVar = sc.nextLine();
 			scoreArray = new String[this.theCourse.studentMap.entrySet().size()]; //array to hold scores for input into method
 			for(Map.Entry<String, Student> theEntry : this.theCourse.studentMap.entrySet()) { //loops over student names
 				while(true) { //loops until valid score is input
@@ -207,9 +209,9 @@ public class EditClassGradebook {
 			
 			boolVar = ClassGradebook.isWeighted; 
 			if(!ClassGradebook.isWeighted){ //if gradebook is not weighted, sets weight values
-				this.theCourse.addAssignmentAll(1.0, false, scoreArray);
+				this.theCourse.addAssignmentAll(1.0, stringVar, false, scoreArray);
 			}else {
-				this.theCourse.addAssignmentAll(getWeight(), boolVar, scoreArray); //add assignments with scoreArray scores
+				this.theCourse.addAssignmentAll(getWeight(), stringVar, boolVar, scoreArray); //add assignments with scoreArray scores
 			}	
 			System.out.println("Assignments added\n");
 		}	
@@ -218,10 +220,12 @@ public class EditClassGradebook {
 	public void addAssignment(Student theStudent) { //adds assignment if student provided
 		if(isStudentInMap(theStudent)) {
 			scanInput = getScore(); //not scanner, just using variable that is a string
+			System.out.println("What is the name of the assignment?");
+			stringVar = sc.nextLine();
 			if(ClassGradebook.isWeighted) {
-				theStudent.addAssignment(scanInput, true, getWeight());
+				theStudent.addAssignment(scanInput, stringVar, true, getWeight());
 			}else {
-				theStudent.addAssignment(scanInput, false, 1.0);
+				theStudent.addAssignment(scanInput, stringVar, false, 1.0);
 			}
 			//calls methods getScore() and getWeight()
 			System.out.println("Assignment added\n");

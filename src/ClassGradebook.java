@@ -38,10 +38,10 @@ public class ClassGradebook {
 		studentCount ++;
 	}
 	
-	public void addAssignmentAll(Double startWeight, Boolean weightBool, String ... startScore) { //adds assignment to all students
+	public void addAssignmentAll(Double startWeight, String startName, Boolean weightBool, String ... startScore) { //adds assignment to all students
 		Integer i = 0;
 		for(Student theStudent : this.studentMap.values()) { //loops through given scores
-			theStudent.addAssignment(startScore[i], weightBool, startWeight);
+			theStudent.addAssignment(startScore[i], startName, weightBool, startWeight);
 			i ++;
 		}	
 	}	
