@@ -107,7 +107,7 @@ public class Student {
 		Double finalGradeVar;
 		for(Map.Entry<Integer, Assignment> entry : this.assignmentMap.entrySet()) { //loops through entries in map
 			if(entry.getValue().finalWeightBool.equals(true)) { //sees if assignment is weighted and loops to find weight value if so
-				if(weightCount.equals(0)) {
+				if(weightCount.equals(0) || weightCount.equals(1)) {
 					weightFactor = entry.getValue().finalWeight; //gets weight value
 					weightCount ++;
 					weightTotal += entry.getValue().getScore().numGrade; //adds score to running total

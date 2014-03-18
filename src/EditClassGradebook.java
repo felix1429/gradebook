@@ -12,6 +12,7 @@ public class EditClassGradebook {
 	Scanner sc = new Scanner(System.in);
 	String scanInput = "";
 	String stringVar = "";
+	Assignment assignmentVar;
 	Student studentVar;
 	String condensedInput = "";
 	String output = "";
@@ -244,13 +245,19 @@ public class EditClassGradebook {
 			studentVar = getStudent();
 			System.out.println("The following assignments are entered for " + getStudentName(studentVar));
 			for(Map.Entry<Integer, Assignment> theEntry : studentVar.assignmentMap.entrySet()) { //loops over student's assignments and prints number and grade
-				System.out.println("Assignment " + theEntry.getKey() + ": " + theEntry.getValue().assignmentScore.percentGrade); //lists assignments already in gradebook
+				System.out.println("Assignment " + theEntry.getKey() + ", \"" + theEntry.getValue().name + "\" : " + theEntry.getValue().assignmentScore.percentGrade); //lists assignments already in gradebook
 			}
-			System.out.println("Which assignment you like to rescore (assignment number)?"); //input should be the assignment's number
+			System.out.println("Which assignment you like to rescore?"); //input should be the assignment's number
 			sleepLocal();
 			scanInput = sc.nextLine();
+			for(Map.Entry<Integer, Assignment> theEntry : studentVar.assignmentMap.entrySet()) { //loops over student's assignments and prints number and grade
+				if(scanInput.equals(theEntry.getValue().name) || scanInput.equals(theEntry.getValue().assignmentNumber)) {
+					assignmentVar = theEntry.getValue();
+				}	
+			}
 			stringVar = getScore(); //gets new score
-			studentVar.assignmentMap.get(scanInput).rescoreAssignment(studentVar.getScore(stringVar)); //fetches assignment obj and rescores it
+			assignmentVar.rescoreAssignment(studentVar.getScore(stringVar));
+			System.out.println("Score saved");
 		}
 	}
 	

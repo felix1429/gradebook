@@ -69,8 +69,8 @@ public class ClassGradebook {
 		}else if(weightGroupSum() + inputWeight > 1) {
 			System.out.println("Assignment weights cannot add up to more than 1\n"
 					+ "Weights already in use are ");
-					for(int counter = 0;counter <= weightGroup.size();counter ++) {
-						System.out.println(removeLeadingZeros((double)Math.round((1 - weightGroup.get(counter)) * 100) / 100) + " ");
+					for(int counter = 0;counter < weightGroup.size();counter ++) {
+						System.out.println(removeLeadingZeros((double)Math.round((weightGroup.get(counter)) * 100) / 100) + " ");
 					}
 			return false;
 		}else if(weightGroupSum() + inputWeight < 1) {
@@ -79,7 +79,7 @@ public class ClassGradebook {
 					+ "You will need to add another weight value so that the total adds up to 1"
 					+ "Weights already in use are ");
 					for(int counter = 0;counter < weightGroup.size();counter ++) {
-						System.out.print(removeLeadingZeros((double)Math.round((1 - weightGroup.get(counter)) * 100) / 100) + " ");
+						System.out.print(removeLeadingZeros((double)Math.round((weightGroup.get(counter)) * 100) / 100) + " ");
 					}
 			return true;
 		}else if(weightGroupSum() + inputWeight == 1) {
