@@ -19,6 +19,9 @@ public class EditClassGradebook {
 	Weight weightVar;
 	Score scoreVar;
 	List<Student> studentList = new ArrayList<Student>();
+	List<Assignment> assignmentList = new ArrayList<Assignment>();
+	List<Assignment> allAssignmentList = new ArrayList<Assignment>();
+	List<Assignment> finalAssignmentList = new ArrayList<Assignment>();
 	
 	
 	public EditClassGradebook(ClassGradebook theStartCourse) {
@@ -243,33 +246,47 @@ public class EditClassGradebook {
 	
 	public void rescoreAssignment() {
 		if(checkStudentMap()) {  //checks if there are students added
-			System.out.println("Would you like to rescore the assignment for everyone or an individual? (a/i)");
+			System.out.println("Would you like to rescore the assignment for all students  or an individual? (a/i)");
 			scanInput = sc.nextLine();
 			if(scanInput.equals("a") || scanInput.equals("A")) {
 				for(Map.Entry<String, Student> theEntry : this.theCourse.studentMap.entrySet()) {
 					studentList.add(theEntry.getValue());
 				}
+				System.out.println("The students have the following assignments in common");
+				int counter = 0;
+				for(Student iter : studentList) {	//iterates over students so intersection of assignment groups can be computed
+					for(Map.Entry<Integer, Assignment> theEntry : iter.assignmentMap.entrySet()) { //loops over student's assignments and prints number and grade
+						if(counter == 0) { //if first student, assignment set is used as base
+							assignmentList.add(theEntry.getValue());
+						}else { //otherwise sets assignment list to set compared to first
+							allAssignmentList.add(theEntry.getValue());
+						}
+					}
+					assignmentList.retainAll(allAssignmentList); //computes intersection
+					allAssignmentList.clear();
+					counter ++; 
+				}	
 			}else if(scanInput.equals("i") || scanInput.equals("I")) {
 				studentVar = getStudent();
+				for(Map.Entry<Integer, Assignment> theEntry : studentVar.assignmentMap.entrySet()) { //loops over student's assignments and prints number and grade
+					allAssignmentList.add(theEntry.getValue());
+				}
 				studentList.add(studentVar);
-			}
-			for(Student iter : studentList) {	
-				System.out.println("The following assignments are entered for " + getStudentName(iter));
-				for(Map.Entry<Integer, Assignment> theEntry : iter.assignmentMap.entrySet()) { //loops over student's assignments and prints number and grade
-					System.out.println("Assignment " + theEntry.getKey() + ", \"" + theEntry.getValue().name + "\" : " + theEntry.getValue().assignmentScore.percentGrade); //lists assignments already in gradebook
-				}
-				System.out.println("Which assignment you like to rescore?"); //input should be the assignment's number
-				sleepLocal();
-				scanInput = sc.nextLine();
-				for(Map.Entry<Integer, Assignment> theEntry : iter.assignmentMap.entrySet()) { //loops over student's assignments and prints number and grade
-					if(scanInput.equals(theEntry.getValue().name) || scanInput.equals(theEntry.getValue().assignmentNumber)) {
-						assignmentVar = theEntry.getValue();
-					}	
-				}
-				stringVar = getScore(); //gets new score
-				assignmentVar.rescoreAssignment(iter.getScore(stringVar));
-				System.out.println("Score saved");
 			}	
+			System.out.println("The following assignments are entered");
+			for(Assignment iter : allAssignmentList) { //loops over student's assignments and prints number and grade
+				System.out.println("Assignment " + iter.assignmentNumber + ", \"" + iter.name + "\" : " + iter.assignmentScore.percentGrade); //lists assignments already in gradebook
+			}
+			System.out.println("Which assignment would you like to rescore?");
+			scanInput = sc.nextLine();
+			for(Assignment iter : allAssignmentList) { //loops over student's assignments and prints number and grade
+				if(scanInput.equals(iter.name) || scanInput.equals(iter.assignmentNumber)) {
+					assignmentVar = iter;
+				}	
+			}
+			stringVar = getScore(); //gets new score
+			assignmentVar.rescoreAssignment(iter.getScore(stringVar));
+			System.out.println("Score saved");
 		}
 	}
 	
