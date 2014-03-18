@@ -18,6 +18,7 @@ public class EditClassGradebook {
 	String output = "";
 	Weight weightVar;
 	Score scoreVar;
+	List<Student> studentList = new ArrayList<Student>();
 	
 	
 	public EditClassGradebook(ClassGradebook theStartCourse) {
@@ -242,22 +243,33 @@ public class EditClassGradebook {
 	
 	public void rescoreAssignment() {
 		if(checkStudentMap()) {  //checks if there are students added
-			studentVar = getStudent();
-			System.out.println("The following assignments are entered for " + getStudentName(studentVar));
-			for(Map.Entry<Integer, Assignment> theEntry : studentVar.assignmentMap.entrySet()) { //loops over student's assignments and prints number and grade
-				System.out.println("Assignment " + theEntry.getKey() + ", \"" + theEntry.getValue().name + "\" : " + theEntry.getValue().assignmentScore.percentGrade); //lists assignments already in gradebook
-			}
-			System.out.println("Which assignment you like to rescore?"); //input should be the assignment's number
-			sleepLocal();
+			System.out.println("Would you like to rescore the assignment for everyone or an individual? (a/i)");
 			scanInput = sc.nextLine();
-			for(Map.Entry<Integer, Assignment> theEntry : studentVar.assignmentMap.entrySet()) { //loops over student's assignments and prints number and grade
-				if(scanInput.equals(theEntry.getValue().name) || scanInput.equals(theEntry.getValue().assignmentNumber)) {
-					assignmentVar = theEntry.getValue();
-				}	
+			if(scanInput.equals("a") || scanInput.equals("A")) {
+				for(Map.Entry<String, Student> theEntry : this.theCourse.studentMap.entrySet()) {
+					studentList.add(theEntry.getValue());
+				}
+			}else if(scanInput.equals("i") || scanInput.equals("I")) {
+				studentVar = getStudent();
+				studentList.add(studentVar);
 			}
-			stringVar = getScore(); //gets new score
-			assignmentVar.rescoreAssignment(studentVar.getScore(stringVar));
-			System.out.println("Score saved");
+			for(Student iter : studentList) {	
+				System.out.println("The following assignments are entered for " + getStudentName(iter));
+				for(Map.Entry<Integer, Assignment> theEntry : iter.assignmentMap.entrySet()) { //loops over student's assignments and prints number and grade
+					System.out.println("Assignment " + theEntry.getKey() + ", \"" + theEntry.getValue().name + "\" : " + theEntry.getValue().assignmentScore.percentGrade); //lists assignments already in gradebook
+				}
+				System.out.println("Which assignment you like to rescore?"); //input should be the assignment's number
+				sleepLocal();
+				scanInput = sc.nextLine();
+				for(Map.Entry<Integer, Assignment> theEntry : iter.assignmentMap.entrySet()) { //loops over student's assignments and prints number and grade
+					if(scanInput.equals(theEntry.getValue().name) || scanInput.equals(theEntry.getValue().assignmentNumber)) {
+						assignmentVar = theEntry.getValue();
+					}	
+				}
+				stringVar = getScore(); //gets new score
+				assignmentVar.rescoreAssignment(iter.getScore(stringVar));
+				System.out.println("Score saved");
+			}	
 		}
 	}
 	
