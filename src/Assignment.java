@@ -34,5 +34,4 @@ public class Assignment { //class for assignments for Student class
 	public Score getScore() {
 		return assignmentScore;
 	}
-}	
-
+}

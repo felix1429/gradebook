@@ -22,7 +22,7 @@ public class GradebookRun {
 		String scanInput2 = "";
 		Boolean scanInput3;
 		String condensedInput = "";
-		Boolean editVar = null;
+		Boolean editVar = false;
 		String nameVar = "";
 		String theOwner;
 		try {
