@@ -20,6 +20,7 @@ public class EditClassGradebook {
 	Score scoreVar;
 	List<Student> studentList = new ArrayList<Student>();
 	List<String> assignmentNameList = new ArrayList<String>();
+	List<Assignment> assignmentList = new ArrayList<Assignment>();
 	List<Assignment> allAssignmentList = new ArrayList<Assignment>();
 	List<String> allAssignmentNameList = new ArrayList<String>();
 	
@@ -139,7 +140,7 @@ public class EditClassGradebook {
 				}else {
 					throw new IllegalArgumentException();
 				}
-			}catch(IllegalArgumentException e){	
+			}catch(IllegalArgumentException e) {	
 				System.out.println("Please enter a valid score");
 			}
 		}
@@ -258,12 +259,18 @@ public class EditClassGradebook {
 					for(Map.Entry<Integer, Assignment> theEntry : iter.assignmentMap.entrySet()) { //loops over student's assignments and prints number and grade
 						if(counter == 0) { //if first student, assignment set is used as base
 							allAssignmentNameList.add(theEntry.getValue().name);
+							allAssignmentList.add(theEntry.getValue());
 						}else { //otherwise sets assignment list to set compared to first
 							assignmentNameList.add(theEntry.getValue().name);
+							assignmentList.add(theEntry.getValue());
 						}
 					}
-					allAssignmentNameList.retainAll(assignmentNameList); //computes intersection
+					if(counter != 0) {
+						allAssignmentList.addAll(assignmentList);
+						allAssignmentNameList.retainAll(assignmentNameList); //computes intersection
+					}	
 					assignmentNameList.clear();
+					assignmentList.clear();
 					counter ++; 
 				}
 				for(String name : allAssignmentNameList) { //prints names of assignments in common
@@ -282,17 +289,17 @@ public class EditClassGradebook {
 			}	
 			System.out.println("Which assignment would you like to rescore?");
 			scanInput = sc.nextLine();
-			for(Assignment iter : allAssignmentList) {
-				if(scanInput.equals(iter.name) || scanInput.equals(iter.assignmentNumber)) {
-					assignmentVar = iter;
-				}	
-			}
-			for(Student iter : studentList) {
+			for(Student studentVar : studentList) {	
+				for(Assignment iter : allAssignmentList) {
+					if(scanInput.equals(iter.name) || scanInput.equals(iter.assignmentNumber)) {
+						assignmentVar = iter;
+					}	
+				}
 				if(studentList.size() > 1) { //if rescoring for all, prints name of student 
-					System.out.println("Enter a score for " + iter.name);
+					System.out.println("Enter a score for " + studentVar.name);
 				}
 				stringVar = getScore(); //gets new score
-				assignmentVar.rescoreAssignment(iter.getScore(stringVar));
+				assignmentVar.rescoreAssignment(studentVar.getScore(stringVar));
 				System.out.println("Score saved");
 			}	
 		}
