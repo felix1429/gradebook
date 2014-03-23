@@ -289,7 +289,8 @@ public class EditClassGradebook {
 			}	
 			System.out.println("Which assignment would you like to rescore?");
 			scanInput = sc.nextLine();
-			for(Student studentVar : studentList) {	
+			for(Student theStudent : studentList) {
+				studentVar = theStudent;
 				for(Assignment iter : allAssignmentList) {
 					if(scanInput.equals(iter.name) || scanInput.equals(iter.assignmentNumber)) {
 						assignmentVar = iter;
