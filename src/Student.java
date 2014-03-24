@@ -124,7 +124,7 @@ public class Student {
 				unweightCount ++;
 				finalOutput = true;
 			}
-		}
+		}  
 		if(finalOutput == true) { //if assignments are not weighted returns unweightAverage
 			unweightAverage = unweightTotal / unweightCount;
 			finalGradeVar = unweightAverage;
@@ -133,6 +133,8 @@ public class Student {
 				weight1Count = 1; //sets to zero (var is null otherwise)
 				weightFactor = 1.0; //assignment gets full weight if is only one
 			}
+			System.out.println(weight1Count);
+			System.out.println(weightCount);
 			weight1Average = (weight1Total / weight1Count) * weightFactor1;
 			weightAverage = (weightTotal / weightCount) * weightFactor;
 			finalGradeVar = weightAverage + weight1Average;

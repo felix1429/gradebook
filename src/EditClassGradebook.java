@@ -135,6 +135,7 @@ public class EditClassGradebook {
 				System.out.println("What is the score (formated x/y)?");
 				sleepLocal();
 				scanInput = sc.nextLine();
+				System.out.println(scanInput);
 				if(studentVar.testScore(scanInput)) { //if is valid score, is returned
 					return scanInput;
 				}else {
