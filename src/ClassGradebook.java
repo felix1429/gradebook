@@ -12,7 +12,7 @@ public class ClassGradebook {
 	public static Boolean isWeighted;
 	public Map<String, Student> studentMap = new HashMap<String, Student>(); //creates map of students
 
-	public ClassGradebook(String courseName, String owner, Boolean startWeight) {
+	public ClassGradebook(String courseName, String owner,final Boolean startWeight) {
 		ClassGradebook.owner = owner;
 		this.courseName = courseName;
 		this.studentCount = 0;

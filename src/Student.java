@@ -111,7 +111,7 @@ public class Student {
 					weightFactor = entry.getValue().finalWeight; //gets weight value
 					weightCount ++;
 					weightTotal += entry.getValue().getScore().numGrade; //adds score to running total
-				}else if(entry.getValue().finalWeight == weightFactor || (!entry.getValue().finalWeight.equals(weightFactor1))) { //if is first weight value, add
+				}else if(entry.getValue().finalWeight == weightFactor && (!entry.getValue().finalWeight.equals(weightFactor1))) { //if is first weight value, add
 					weightCount ++;
 					weightTotal += entry.getValue().getScore().numGrade;
 				}else if(((entry.getValue().finalWeight) != weightFactor) || (entry.getValue().finalWeight == weightFactor1)) { //if is second weight value
