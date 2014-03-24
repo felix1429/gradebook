@@ -21,7 +21,7 @@ public class ClassGradebook {
 
 	private String removeLeadingZeros(Double input) { //regex that removes leading zeros from double, applied to assignment weights
 		String strInput = Double.toString(input);
-		return strInput.replaceFirst("^0+(?!$)", "");
+		return strInput.replaceFirst("^0+(?!$)", ""); //pretty hot, huh?
 	}
 	
 	private Double weightGroupSum() {
