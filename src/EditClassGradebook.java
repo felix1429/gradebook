@@ -1,10 +1,3 @@
-/*
-  Trevor Hennig
-  January 2014
-  Program allows user to create gradebook for specified class (English, math, etc) and add students to it.  
-  Students can be given assignments with a score, which constitutes a percentage and a letter grade
- */
-
 import java.util.*;
 
 public class EditClassGradebook {
@@ -40,11 +33,12 @@ public class EditClassGradebook {
 		System.out.println("You can now add the initial batch of students.  Type \"done\" when finished"); //prompts user to input students
 		while(true) {
 			addStudent();
-			System.out.println("Add another (y/n)?");
+			System.out.println("Add another (y/n)?\n");
 			scanInput = sc.nextLine();
 			if(GradebookRun.yesOrNo(scanInput)) { //prompts for y or n
 				continue;
 			}else {
+				System.out.println("You can now begin to use the gradebook as explained");
 				break;
 			}
 		}	

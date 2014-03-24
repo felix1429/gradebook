@@ -58,9 +58,8 @@ public class GradebookRun {
 					scanInput3 = yesOrNo(scanInput);
 					editVar = scanInput3;
 				}	
-
 				if(condensedInput.equals("addinformation") || (editVar.equals(true))) {
-					if(condensedInput.equals("addinformation") == false) {
+					if(!condensedInput.equals("addinformation")) {
 						scanInput = nameVar;
 					}else {
 						while(true) {
@@ -173,7 +172,8 @@ public class GradebookRun {
 				}else {
 					System.out.println("Please input a valid command");
 				}
-				editVar = null;
+				editVar = false; //resets values of vars for each iteration
+				condensedInput.equals("");
 			}
 		}finally { //closes scanner on exit
 			sc.close();
