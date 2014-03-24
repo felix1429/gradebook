@@ -111,7 +111,7 @@ public class Student {
 					weightFactor = entry.getValue().finalWeight; //gets weight value
 					weightCount ++;
 					weightTotal += entry.getValue().getScore().numGrade; //adds score to running total
-				}else if(entry.getValue().finalWeight == weightFactor) { //if is first weight value, add
+				}else if(entry.getValue().finalWeight == weightFactor || (!entry.getValue().finalWeight.equals(weightFactor1))) { //if is first weight value, add
 					weightCount ++;
 					weightTotal += entry.getValue().getScore().numGrade;
 				}else if(((entry.getValue().finalWeight) != weightFactor) || (entry.getValue().finalWeight == weightFactor1)) { //if is second weight value
@@ -133,8 +133,6 @@ public class Student {
 				weight1Count = 1; //sets to zero (var is null otherwise)
 				weightFactor = 1.0; //assignment gets full weight if is only one
 			}
-			System.out.println(weight1Count);
-			System.out.println(weightCount);
 			weight1Average = (weight1Total / weight1Count) * weightFactor1;
 			weightAverage = (weightTotal / weightCount) * weightFactor;
 			finalGradeVar = weightAverage + weight1Average;
