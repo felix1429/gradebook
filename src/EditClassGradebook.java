@@ -250,7 +250,7 @@ public class EditClassGradebook {
 		if(checkStudentMap()) {  //checks if there are students added
 			System.out.println("Would you like to rescore the assignment for all students or an individual? (a/i)");
 			scanInput = sc.nextLine();
-			if(scanInput.equals("a") || scanInput.equals("A")) {
+			if(scanInput.equals("a") || scanInput.equals("A")) { //if for all students
 				for(Map.Entry<String, Student> theEntry : this.theCourse.studentMap.entrySet()) {
 					studentList.add(theEntry.getValue()); //add student to list
 				}
@@ -277,7 +277,7 @@ public class EditClassGradebook {
 				for(String name : allAssignmentNameList) { //prints names of assignments in common
 					System.out.println(name);
 				}
-			}else if(scanInput.equals("i") || scanInput.equals("I")) {
+			}else if(scanInput.equals("i") || scanInput.equals("I")) { //if for individual 
 				studentVar = getStudent();
 				for(Map.Entry<Integer, Assignment> theEntry : studentVar.assignmentMap.entrySet()) { //loops over student's assignments and prints number and grade
 					allAssignmentList.add(theEntry.getValue());
@@ -290,7 +290,8 @@ public class EditClassGradebook {
 			}	
 			System.out.println("Which assignment would you like to rescore?");
 			scanInput = sc.nextLine();
-			for(Student studentVar : studentList) {	
+			for(Student theStudent : studentList) {
+				studentVar = theStudent;
 				for(Assignment iter : allAssignmentList) {
 					if(scanInput.equals(iter.name) || scanInput.equals(iter.assignmentNumber)) {
 						assignmentVar = iter;
