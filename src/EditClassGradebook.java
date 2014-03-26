@@ -278,7 +278,8 @@ public class EditClassGradebook {
 				studentList.add(studentVar);
 				System.out.println("The following assignments are entered for " + studentVar.name);
 				for(Assignment iter : allAssignmentList) { //loops over student's assignments and prints number and grade
-					System.out.println("Assignment " + iter.assignmentNumber + ", \"" + iter.name + "\" : " + iter.assignmentScore.percentGrade); //lists assignments already in gradebook
+					System.out.println("Assignment " + iter.assignmentNumber + ", \"" + iter.name + "\" : "
+							+ iter.assignmentScore.percentGrade); //lists assignments already in gradebook
 				}
 			}	
 			System.out.println("Which assignment would you like to rescore?");

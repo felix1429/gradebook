@@ -47,16 +47,19 @@ public class GradebookRun {
 					scanInput = sc.nextLine();
 					System.out.println("Would you like to be able to assign different weights to assignments? (y/n)");
 					sleepLocal(); //sleeps briefly to prevent user input before print
-					scanInput2 = sc.nextLine(); //gets initial input
-					scanInput3 = yesOrNo(scanInput2); //checks if is right syntax and if not, loops until is
+					scanInput3 = yesOrNo(sc.nextLine()); //checks if is right syntax and if not, loops until is
 					gradeBk.addCourse(scanInput, scanInput2, scanInput3); //creates course
 					nameVar = scanInput; //gets name of course
-					System.out.println("\"" + scanInput + "\" has been added as a course\n");
-					System.out.println("Would you like to add info \"" + nameVar +  "\" (y/n)?");
+					System.out.println("\"" + scanInput + "\" has been added as a course\n" +
+					"Would you like to add info \"" + nameVar +  "\" (y/n)?");
 					sleepLocal();
 					scanInput = sc.nextLine();
 					scanInput3 = yesOrNo(scanInput);
 					editVar = scanInput3;
+					if(!(editVar.equals(true))) {
+						scanInput = sc.nextLine();
+						condensedInput = scanInput.replace(" ", "").toLowerCase();
+					}
 				}	
 				if(condensedInput.equals("addinformation") || (editVar.equals(true))) {
 					if(!condensedInput.equals("addinformation")) {
@@ -69,7 +72,11 @@ public class GradebookRun {
 							if(gradeBk.ClassMap.containsKey(scanInput)) {
 								break;
 							}else {
-								System.out.println(scanInput + " is not a valid course" );
+								System.out.println(scanInput + " is not a valid course\n"
+										+ "Courses entered in gradebook are");
+								for(Map.Entry<String, ClassGradebook> theEntry : gradeBk.ClassMap.entrySet()) {
+									System.out.println(theEntry.getKey());
+								}
 							}
 						}
 					}	
@@ -163,10 +170,6 @@ public class GradebookRun {
 						System.out.println("There is no course named " + scanInput + "\n"
 								+ "Please input a valid course");
 					}
-					
-				
-				}else if(editVar.equals(false) || editVar.equals(false)) {
-					continue;
 					
 					
 				}else {
