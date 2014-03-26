@@ -311,7 +311,7 @@ public class EditClassGradebook {
 	}	
 	
 	public void getAllInfo() { //gets all assignments and total grade
-		System.out.println(ClassGradebook.owner + "\'s gradebook " + this.theCourse.courseName + "\n"); //get course
+		System.out.println(this.theCourse.isWeighted + "\'s gradebook " + this.theCourse.courseName + "\n"); //get course
 		if(checkStudentMap()) {
 			for(Student key : this.theCourse.studentMap.values()) {
 				System.out.println(key.getAllInfo());

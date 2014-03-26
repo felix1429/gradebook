@@ -4,6 +4,8 @@ import java.util.*;
 public class GradebookRun {
 	
 	static Scanner sc = new Scanner(System.in);
+	public static ClassGradebook classGradebookVar;
+	
 	
 	public static Boolean yesOrNo(String input) {
 		while(true) { //loops until either y or n is input
@@ -16,17 +18,39 @@ public class GradebookRun {
 				input = sc.nextLine();
 			}
 		}
-	}	
+	}
+	
+	private static ClassGradebook getClass(String theTeacher, Gradebook bkVar) {
+		String scanInput;
+		while(true) {
+			System.out.println("What is the name of the course?");
+			sleepLocal();
+			scanInput = sc.nextLine();
+			if(bkVar.ClassMap.containsKey(scanInput)) {
+				for(Map.Entry<String,ClassGradebook> theEntry : bkVar.ClassMap.entrySet()) {
+					if(scanInput.equals(theEntry.getKey()));
+					return theEntry.getValue();
+				}
+			}else {
+				System.out.println(scanInput + " is not a valid course\n"
+						+ "Courses entered in gradebook are");
+				for(Map.Entry<String, ClassGradebook> theEntry : bkVar.ClassMap.entrySet()) {
+					System.out.println(theEntry.getKey());
+				}
+			}
+		}
+	}
 			
 	
 	public static void main(String[] args) throws IOException {
+		
+		Boolean editVar = false;
+		String nameVar = "";
+		String theOwner;
 		String scanInput = "";
 		String scanInput2 = "";
 		Boolean scanInput3;
 		String condensedInput = "";
-		Boolean editVar = false;
-		String nameVar = "";
-		String theOwner;
 		try {
 			System.out.println("Hello!  We will use this program to create and edit a gradebook.\n"
 					+ "Who is the owner of this gradebook?");
@@ -35,7 +59,8 @@ public class GradebookRun {
 			Gradebook gradeBk = new Gradebook(theOwner);
 			System.out.println("You can now add a course by typing \"add course\" and add information by typing \"add information\".\n"
 					+ "You can get the information of a course by typing \"get course info\" and get the name of all courses input\n"
-					+ "by typing \"get courses\"");
+					+ "by typing \"get courses.\"  To see the name of the teacher the gradebook belongs to, "
+					+ "type \"get teacher name,\" and if you want to give the gradebook to a different owner, type \"change owner\"");
 			while(true) {
 				sleepLocal();
 				if(sc.hasNext()) {
@@ -59,31 +84,19 @@ public class GradebookRun {
 					scanInput3 = yesOrNo(scanInput);
 					editVar = scanInput3;
 					if(!(editVar.equals(true))) {
-						scanInput = sc.nextLine();
-						condensedInput = scanInput.replace(" ", "").toLowerCase();
+						for(Map.Entry<String, ClassGradebook> theEntry : gradeBk.ClassMap.entrySet()) {
+							if(theEntry.getKey() == nameVar){
+								classGradebookVar = getClass(gradeBk.owner, gradeBk);
+								break;
+							}
+						}
 					}
 				}	
 				if(condensedInput.equals("addinformation") || (editVar.equals(true))) {
-					if(!condensedInput.equals("addinformation")) {
-						scanInput = nameVar;
-					}else {
-						while(true) {
-							System.out.println("What is the name of the course?");
-							sleepLocal();
-							scanInput = sc.nextLine();
-							if(gradeBk.ClassMap.containsKey(scanInput)) {
-								break;
-							}else {
-								System.out.println(scanInput + " is not a valid course\n"
-										+ "Courses entered in gradebook are");
-								for(Map.Entry<String, ClassGradebook> theEntry : gradeBk.ClassMap.entrySet()) {
-									System.out.println(theEntry.getKey());
-								}
-							}
-						}
+					if(editVar.equals(false)) {
+						classGradebookVar = getClass(gradeBk.owner, gradeBk);
 					}	
-					
-					EditClassGradebook temp = new EditClassGradebook(gradeBk.ClassMap.get(scanInput)); //creates new instance of EditClassGradebook
+					EditClassGradebook temp = new EditClassGradebook(classGradebookVar); //creates new instance of EditClassGradebook
 					while(true) {
 						editVar = null;
 						sleepLocal();
@@ -176,7 +189,18 @@ public class GradebookRun {
 								+ "Please input a valid course");
 					}
 					
+				
+				}else if(condensedInput.equals("getteachername")) {
+					System.out.println("This gradebook belongs to " + gradeBk.owner);
 					
+				
+				}else if(condensedInput.equals("changeowner")) {	
+					System.out.println("What is the new teacher's name?");
+					scanInput = sc.nextLine();
+					gradeBk.owner = scanInput;
+					System.out.println("Owner changed");
+				
+				
 				}else {
 					System.out.println("Please input a valid command");
 				}

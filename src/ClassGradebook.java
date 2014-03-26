@@ -3,14 +3,14 @@ import java.util.*;
 
 public class ClassGradebook {
 	public Integer studentCount;
-	public static String owner;
+	public String owner;
 	public String courseName;
 	public List<Double> weightGroup = new ArrayList<Double>();
 	public Boolean isWeighted;
 	public Map<String, Student> studentMap = new HashMap<String, Student>(); //creates map of students
 
 	public ClassGradebook(String courseName, String owner,final Boolean startWeight) {
-		ClassGradebook.owner = owner;
+		this.owner = owner;
 		this.courseName = courseName;
 		this.studentCount = 0;
 		this.isWeighted = startWeight;
@@ -27,6 +27,10 @@ public class ClassGradebook {
 			total += iter;
 		}
 		return total;
+	}
+	
+	public void changeOwner(String newOne) {
+		this.owner = newOne;
 	}
 	
 	public void changeCourseName(String newName) {
