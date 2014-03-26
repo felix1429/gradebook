@@ -81,9 +81,9 @@ public class GradebookRun {
 					"Would you like to add info \"" + nameVar +  "\" (y/n)?");
 					sleepLocal();
 					scanInput = sc.nextLine();
-					scanInput3 = yesOrNo(scanInput);
+					scanInput3 = yesOrNo(scanInput); //if yes, user has prompted to edit the gradebook
 					editVar = scanInput3;
-					if(!(editVar.equals(true))) {
+					if(!(editVar.equals(true))) { //if editVar is true, gets ClassGradebook from name
 						for(Map.Entry<String, ClassGradebook> theEntry : gradeBk.ClassMap.entrySet()) {
 							if(theEntry.getKey() == nameVar){
 								classGradebookVar = getClass(gradeBk.owner, gradeBk);
@@ -92,7 +92,8 @@ public class GradebookRun {
 						}
 					}
 				}	
-				if(condensedInput.equals("addinformation") || (editVar.equals(true))) {
+				
+				if(condensedInput.equals("addinformation") || (editVar.equals(true))) { //if user has prompted to edit right after creating, editVar will be true
 					if(editVar.equals(false)) {
 						classGradebookVar = getClass(gradeBk.owner, gradeBk);
 					}	
