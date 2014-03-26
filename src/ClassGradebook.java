@@ -5,18 +5,15 @@ public class ClassGradebook {
 	public Integer studentCount;
 	public static String owner;
 	public String courseName;
-	public Scanner sc;
-	public String scanInput = "";
-	public Student studentVar;
 	public List<Double> weightGroup = new ArrayList<Double>();
-	public static Boolean isWeighted;
+	public Boolean isWeighted;
 	public Map<String, Student> studentMap = new HashMap<String, Student>(); //creates map of students
 
 	public ClassGradebook(String courseName, String owner,final Boolean startWeight) {
 		ClassGradebook.owner = owner;
 		this.courseName = courseName;
 		this.studentCount = 0;
-		ClassGradebook.isWeighted = startWeight;
+		this.isWeighted = startWeight;
 	}	
 
 	private String removeLeadingZeros(Double input) { //regex that removes leading zeros from double, applied to assignment weights

@@ -1,6 +1,6 @@
 public class Weight {
 	
-	Boolean isWeighted;
+	public Boolean isWeighted;
 	
 	public Weight(Boolean startWeight) {
 		this.isWeighted = startWeight;

@@ -167,7 +167,7 @@ public class Student {
 		}else {
 			for(Assignment a : assignmentMap.values()) { //gets score of each assignment
 				assignmentOutput += "Assignment " + assignmentCount + ", \"" + a.name + "\"" //gets assignment number and name
-					+ (ClassGradebook.isWeighted ? (" (" + removeLeadingZeros((double)Math.round(a.theAssignmentWeight.weightFactor * 100) / 100) + ")") : "") + ": " //if weighted, gets weight factor
+					+ (a.finalWeightBool ? (" (" + removeLeadingZeros((double)Math.round(a.theAssignmentWeight.weightFactor * 100) / 100) + ")") : "") + ": " //if weighted, gets weight factor
 					+ a.assignmentScore.percentGrade + ", " + a.assignmentScore.letterGrade.gradePronoun + " " //gets percent score and pronoun
 					+ a.assignmentScore.letterGrade.actualLetter + "\n";  //gets letter grade
 				assignmentCount ++; //increments counter

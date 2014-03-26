@@ -26,7 +26,8 @@ public class EditClassGradebook {
 				+ "remove a student by typing \"remove student\", get all of a student\'s information\n"
 				+ "by typing \"get student profile\", add an assignment by typing \"add assignment\",\n"
 				+ "get a student\'s grade by typing \"get grade\", get a list of all students by typing \"get all students\",\n"
-				+ " and get all the course\'s information by typing \"get all info\"\n"
+				+ "find if the class has assignment weighting by typing \"is it weighted\",\n"
+				+ "and get all the course\'s information by typing \"get all info\"\n"
 				+ "For help type \"help\"\n"
 				+ "Exit by typing \"exit\"");
 		
@@ -207,8 +208,8 @@ public class EditClassGradebook {
 				}
 			}
 			
-			boolVar = ClassGradebook.isWeighted; 
-			if(!ClassGradebook.isWeighted){ //if gradebook is not weighted, sets weight values
+			boolVar = this.theCourse.isWeighted; 
+			if(!boolVar){ //if gradebook is not weighted, sets weight values
 				this.theCourse.addAssignmentAll(1.0, stringVar, false, scoreArray);
 			}else {
 				this.theCourse.addAssignmentAll(getWeight(), stringVar, boolVar, scoreArray); //add assignments with scoreArray scores
@@ -222,7 +223,7 @@ public class EditClassGradebook {
 			scanInput = getScore(); //not scanner, just using variable that is a string
 			System.out.println("What is the name of the assignment?");
 			stringVar = sc.nextLine();
-			if(ClassGradebook.isWeighted) {
+			if(this.theCourse.isWeighted) {
 				theStudent.addAssignment(scanInput, stringVar, true, getWeight());
 			}else {
 				theStudent.addAssignment(scanInput, stringVar, false, 1.0);
@@ -316,6 +317,14 @@ public class EditClassGradebook {
 				System.out.println(key.getAllInfo());
 			}
 		}	
+	}
+	
+	public void isWeighted() {
+		if(this.theCourse.isWeighted) {
+			System.out.println(this.theCourse.courseName + " has assignment weighting");
+		}else {
+			System.out.println(this.theCourse.courseName + " does not have assignment weighting");
+		}
 	}
 	
 	public boolean exit() { //exits editing of course

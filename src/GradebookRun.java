@@ -3,6 +3,8 @@ import java.util.*;
 
 public class GradebookRun {
 	
+	static Scanner sc = new Scanner(System.in);
+	
 	public static Boolean yesOrNo(String input) {
 		while(true) { //loops until either y or n is input
 			if(input.equals("y") || input.equals("Y"))	{
@@ -11,13 +13,13 @@ public class GradebookRun {
 				return false;
 			}else {
 				System.out.println("Please pick either y or n");
+				input = sc.nextLine();
 			}
 		}
 	}	
 			
 	
 	public static void main(String[] args) throws IOException {
-		Scanner sc = new Scanner(System.in);
 		String scanInput = "";
 		String scanInput2 = "";
 		Boolean scanInput3;
@@ -131,6 +133,9 @@ public class GradebookRun {
 						}else if(condensedInput.equals("rescoreassignment")) {
 							temp.rescoreAssignment();
 						
+						}else if(condensedInput.equals("isweighted")) {	
+							temp.isWeighted();
+							
 						}else if(condensedInput.equals("help")) {
 							temp.help();
 						
