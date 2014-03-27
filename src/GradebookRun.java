@@ -20,7 +20,7 @@ public class GradebookRun {
 		}
 	}
 	
-	private static ClassGradebook getClass(String theTeacher, Gradebook bkVar) {
+	private static ClassGradebook getClass(Gradebook bkVar) {
 		String scanInput;
 		while(true) {
 			System.out.println("What is the name of the course?");
@@ -59,7 +59,7 @@ public class GradebookRun {
 			Gradebook gradeBk = new Gradebook(theOwner);
 			System.out.println("You can now add a course by typing \"add course\" and add information by typing \"add information\".\n"
 					+ "You can get the information of a course by typing \"get course info\" and get the name of all courses input\n"
-					+ "by typing \"get courses.\"  To see the name of the teacher the gradebook belongs to, "
+					+ "by typing \"get courses.\"  To see the name of the teacher the gradebook belongs to, \n"
 					+ "type \"get teacher name,\" and if you want to give the gradebook to a different owner, type \"change owner\"");
 			while(true) {
 				sleepLocal();
@@ -81,21 +81,22 @@ public class GradebookRun {
 					"Would you like to add info \"" + nameVar +  "\" (y/n)?");
 					sleepLocal();
 					scanInput = sc.nextLine();
-					scanInput3 = yesOrNo(scanInput); //if yes, user has prompted to edit the gradebook
-					editVar = scanInput3;
-					if(!(editVar.equals(true))) { //if editVar is true, gets ClassGradebook from name
+					editVar = yesOrNo(scanInput); //if yes, user has prompted to edit the gradebook
+					if(editVar.equals(true)) { //if editVar is true, gets ClassGradebook from name
 						for(Map.Entry<String, ClassGradebook> theEntry : gradeBk.ClassMap.entrySet()) {
 							if(theEntry.getKey() == nameVar){
-								classGradebookVar = getClass(gradeBk.owner, gradeBk);
+								classGradebookVar = theEntry.getValue();
 								break;
 							}
 						}
+					}else {
+						System.out.println("\n");
 					}
 				}	
 				
 				if(condensedInput.equals("addinformation") || (editVar.equals(true))) { //if user has prompted to edit right after creating, editVar will be true
 					if(editVar.equals(false)) {
-						classGradebookVar = getClass(gradeBk.owner, gradeBk);
+						classGradebookVar = getClass(gradeBk);
 					}	
 					EditClassGradebook temp = new EditClassGradebook(classGradebookVar); //creates new instance of EditClassGradebook
 					while(true) {
@@ -165,30 +166,40 @@ public class GradebookRun {
 							+ "Add a course by typing \"add course\"\n"
 							+ "Add information by typing \"addinformation\"\n"
 							+ "Get a courses info by typing \"get course info\"\n"
-							+ "Get the names of all courses by typing \"get courses\"\n");
+							+ "Get the names of all courses by typing \"get courses\"\n"
+							+ "Get the name of the teacher by typing \"get teacher name\"\n"
+							+ "Change the owner of the gradebook by typing \"change owner\"");
 
 					
 				}else if(condensedInput.equals("getcourses")) { //prints courses that are currently entered
-					for(String courseName : gradeBk.ClassMap.keySet()) {
-						System.out.println(courseName);
-					}
+					if(gradeBk.ClassMap.isEmpty()) {
+						System.out.println("There are no courses entered in the gradebook");
+					}else {
+						for(String courseName : gradeBk.ClassMap.keySet()) {
+							System.out.println(courseName);
+						}
+					}	
 					
 				
 				}else if(condensedInput.equals("getcourseinfo")) { //gets all info of course
-					try {
-						System.out.println("For which course?");
-						scanInput = sc.nextLine();
-						if(gradeBk.ClassMap.containsKey(scanInput)) {
-							for(Student theStudent : gradeBk.ClassMap.get(scanInput).studentMap.values()) {
-								System.out.println(theStudent.getAllInfo());
+					if(gradeBk.ClassMap.isEmpty()) {
+						System.out.println("There are no courses in the gradebook");
+					}else {
+						try {
+							System.out.println("For which course?");
+							scanInput = sc.nextLine();
+							if(gradeBk.ClassMap.containsKey(scanInput)) {
+								for(Student theStudent : gradeBk.ClassMap.get(scanInput).studentMap.values()) {
+									System.out.println(theStudent.getAllInfo());
+								}
+							}else {
+								throw new NullPointerException();
 							}
-						}else {
-							throw new NullPointerException();
+						}catch(NullPointerException e) {
+							System.out.println("There is no course named " + scanInput + "\n"
+									+ "Please input a valid course");
 						}
-					}catch(NullPointerException e) {
-						System.out.println("There is no course named " + scanInput + "\n"
-								+ "Please input a valid course");
-					}
+					}	
 					
 				
 				}else if(condensedInput.equals("getteachername")) {
@@ -201,7 +212,10 @@ public class GradebookRun {
 					gradeBk.owner = scanInput;
 					System.out.println("Owner changed");
 				
-				
+				}else if(condensedInput.equals("addcourse")) {
+					continue;
+					
+					
 				}else {
 					System.out.println("Please input a valid command");
 				}
