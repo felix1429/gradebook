@@ -1,4 +1,8 @@
-public class LtrGrade { //letter grade, letter and its pronoun
+import java.io.Serializable;
+
+public class LtrGrade 
+	implements Serializable { //letter grade, letter and its pronoun
+	
 	public String gradePronoun; // 'a' or 'an'
 	public String actualLetter;
 	

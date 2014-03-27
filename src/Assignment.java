@@ -1,4 +1,8 @@
-public class Assignment { //class for assignments for Student class
+import java.io.Serializable;
+
+public class Assignment 
+	implements Serializable { //class for assignments for Student class
+	
 	public Score assignmentScore;
 	public Integer assignmentNumber;
 	public String name;

@@ -1,4 +1,8 @@
-public class Score { //object with attributes number and letter grade
+import java.io.Serializable;
+
+public class Score 
+	implements Serializable { //object with attributes number and letter grade
+	
 	public Double numGrade;
 	public LtrGrade letterGrade;
 	public String percentGrade;

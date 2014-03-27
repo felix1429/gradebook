@@ -1,8 +1,10 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.io.Serializable;
 
 
-public class Teacher {
+public class Teacher 
+	implements Serializable {
+	
 	Gradebook gradeBk;
 	String name;
 	Map<String, Gradebook> gradebookMap = new HashMap<String, Gradebook>();

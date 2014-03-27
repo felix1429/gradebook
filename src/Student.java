@@ -1,6 +1,8 @@
 import java.util.*;
+import java.io.Serializable;
 
-public class Student {
+public class Student 
+	implements Serializable {
 
 	Score grade;
 	Integer testCountVar = 0;

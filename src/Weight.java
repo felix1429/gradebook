@@ -1,4 +1,7 @@
-public class Weight {
+import java.io.*;
+
+public class Weight 
+	implements Serializable {
 	
 	public Boolean isWeighted;
 	

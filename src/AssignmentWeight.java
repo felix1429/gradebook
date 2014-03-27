@@ -1,5 +1,7 @@
+import java.io.Serializable;
 
-public class AssignmentWeight {
+public class AssignmentWeight 
+	implements Serializable {
 
 	public Double weightFactor;
 	

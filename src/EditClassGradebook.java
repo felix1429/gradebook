@@ -1,6 +1,7 @@
 import java.util.*;
 
 public class EditClassGradebook {
+	
 	public ClassGradebook theCourse;
 	Scanner sc = new Scanner(System.in);
 	String scanInput = "";

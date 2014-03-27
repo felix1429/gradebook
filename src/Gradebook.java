@@ -1,6 +1,8 @@
 import java.util.*;
+import java.io.Serializable;
 
-public class Gradebook {
+public class Gradebook 
+	implements Serializable{
 	
 	String owner;
 	Boolean isWeighted;
