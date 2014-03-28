@@ -19,7 +19,7 @@ public class ClassGradebook
 		this.isWeighted = startWeight;
 	}	
 
-	private String removeLeadingZeros(Double input) { //regex that removes leading zeros from double, applied to assignment weights
+	private String removeLeadingZeros(Double input) { //regex that removes leading zeros from double, applied to assignment weights for printing
 		String strInput = Double.toString(input);
 		return strInput.replaceFirst("^0+(?!$)", ""); //sexy
 	}

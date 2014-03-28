@@ -1,6 +1,8 @@
 import java.util.*;
+import java.io.*;
 
-public class EditClassGradebook {
+public class EditClassGradebook 
+	implements Serializable {
 	
 	public ClassGradebook theCourse;
 	Scanner sc = new Scanner(System.in);

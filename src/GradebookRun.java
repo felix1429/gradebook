@@ -1,7 +1,8 @@
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
-public class GradebookRun {
+public class GradebookRun 
+	implements Serializable {
 	
 	static Scanner sc = new Scanner(System.in);
 	public static ClassGradebook classGradebookVar;
