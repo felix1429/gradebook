@@ -90,8 +90,6 @@ public class GradebookRun
 								break;
 							}
 						}
-					}else {
-						System.out.println("\n");
 					}
 				}	
 				
@@ -216,7 +214,16 @@ public class GradebookRun
 				}else if(condensedInput.equals("addcourse")) {
 					continue;
 					
-					
+				}else if(condensedInput.equals("save")) {
+					Serialize serObj = new Serialize();
+					serObj.serialize(gradeBk);
+					System.out.println("done");
+				
+				}else if(condensedInput.equals("load")) {
+					Serialize serObj = new Serialize();
+					serObj.deserialize();
+					gradeBk = serObj.gradeBk;
+					System.out.println("Done");
 				}else {
 					System.out.println("Please input a valid command");
 				}
