@@ -4,6 +4,7 @@ import java.io.Serializable;
 public class Gradebook 
 	implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	String owner;
 	Boolean isWeighted;
 	public Map<String, ClassGradebook> ClassMap = new HashMap<String, ClassGradebook>(); //creates map of students

@@ -1,12 +1,11 @@
-//"C:/users/216003/java/eclipse windows/workbenchProjects/gradebook/savedData/data.ser"
+//ITFP: C:/users/216003/java/eclipse windows/workbenchProjects/gradebook/savedData/data.ser
 
 import java.io.*;
-import java.nio.file.*;
-import java.util.*;
 
 public class Serialize
 	implements Serializable{
-	
+
+	private static final long serialVersionUID = 1L;
 	String path = "C:/users/216003/java/eclipsewindows/workbenchprojects/gradebook/data/data.ser";
 	Gradebook gradeBk;
 	

@@ -2,7 +2,8 @@ import java.io.Serializable;
 
 public class Score 
 	implements Serializable { //object with attributes number and letter grade
-	
+
+	private static final long serialVersionUID = 1L;
 	public Double numGrade;
 	public LtrGrade letterGrade;
 	public String percentGrade;

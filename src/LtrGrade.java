@@ -2,7 +2,8 @@ import java.io.Serializable;
 
 public class LtrGrade 
 	implements Serializable { //letter grade, letter and its pronoun
-	
+
+	private static final long serialVersionUID = 1L;
 	public String gradePronoun; // 'a' or 'an'
 	public String actualLetter;
 	

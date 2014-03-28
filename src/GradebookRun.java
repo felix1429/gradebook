@@ -3,7 +3,8 @@ import java.util.*;
 
 public class GradebookRun 
 	implements Serializable {
-	
+
+	private static final long serialVersionUID = 1L;
 	static Scanner sc = new Scanner(System.in);
 	public static ClassGradebook classGradebookVar;
 	

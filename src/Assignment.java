@@ -3,6 +3,7 @@ import java.io.Serializable;
 public class Assignment 
 	implements Serializable { //class for assignments for Student class
 	
+	private static final long serialVersionUID = 1L;
 	public Score assignmentScore;
 	public Integer assignmentNumber;
 	public String name;
