@@ -14,22 +14,25 @@ public class Serialize
 	Gradebook gradeBk;
 	String path;
 	
-	public void main(String[] args) {
+	public Serialize() {
 		pathList.add(homePath); 
 		pathList.add(ITFPPath);
-		
 		for(String i : pathList) { //tests all paths in list and if finds legit one, sets it to 'path' var
 			File file = new File(i);
 			if(file.exists()) {
-				path = i;
+				this.path = i; //sets PATH var
 				break;
 			}
-		}	
+		}
+	}
+	
+	public void main(String[] args) {
+			
 	}
 	
 	public void serialize(Object ... theObj) {
 		try {
-			FileOutputStream fOut = new FileOutputStream(path);
+			FileOutputStream fOut = new FileOutputStream(this.path);
 			ObjectOutputStream oOut = new ObjectOutputStream(fOut);
 			for(int i = 0;i < theObj.length; i ++) {
 				oOut.writeObject(theObj[i]);
@@ -44,13 +47,13 @@ public class Serialize
 	
 	public void deserialize() {
 		try {
-			FileInputStream fIn  = new FileInputStream(path);
+			FileInputStream fIn  = new FileInputStream(this.path);
 			ObjectInputStream oIn = new ObjectInputStream(fIn);
 			this.gradeBk = (Gradebook) oIn.readObject();
 			fIn.close();
 			oIn.close();
-		}catch(IOException i) {
-			i.printStackTrace();
+		}catch(IOException io) {
+			io.printStackTrace();
 		}catch(ClassNotFoundException c) {
 			c.printStackTrace();
 			System.out.println("Error in decoding information");

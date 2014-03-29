@@ -7,6 +7,7 @@ public class GradebookRun
 	private static final long serialVersionUID = 1L;
 	static Scanner sc = new Scanner(System.in);
 	public static ClassGradebook classGradebookVar;
+	public static Serialize serObj = new Serialize();
 	
 	
 	public static Boolean yesOrNo(String input) {
@@ -216,15 +217,13 @@ public class GradebookRun
 					continue;
 					
 				}else if(condensedInput.equals("save")) {
-					Serialize serObj = new Serialize();
 					serObj.serialize(gradeBk);
-					System.out.println("done");
+					System.out.println("Data saved");
 				
 				}else if(condensedInput.equals("load")) {
-					Serialize serObj = new Serialize();
 					serObj.deserialize();
 					gradeBk = serObj.gradeBk;
-					System.out.println("Done");
+					System.out.println("Data loaded");
 				}else {
 					System.out.println("Please input a valid command");
 				}
