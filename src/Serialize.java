@@ -25,10 +25,7 @@ public class Serialize
 			}
 		}
 	}
-	
-	public void main(String[] args) {
-			
-	}
+
 	
 	public void serialize(Object ... theObj) {
 		try {
