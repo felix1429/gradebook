@@ -8,6 +8,7 @@ public class GradebookRun
 	static Scanner sc = new Scanner(System.in);
 	public static ClassGradebook classGradebookVar;
 	public static Serialize serObj = new Serialize();
+	public static Gradebook gradeBk;
 	
 	
 	public static Boolean yesOrNo(String input) {
@@ -43,6 +44,19 @@ public class GradebookRun
 			}
 		}
 	}
+	
+	public static void save() {
+		if(serObj.serialize(gradeBk)) {
+		System.out.println("Data saved");
+		}
+	}
+	
+	public static void load() {
+		if(serObj.deserialize()) {
+			gradeBk = serObj.gradeBk;
+			System.out.println("Data loaded");
+		}	
+	}
 			
 	
 	public static void main(String[] args) throws IOException {
@@ -56,10 +70,22 @@ public class GradebookRun
 		String condensedInput = "";
 		try {
 			System.out.println("Hello!  We will use this program to create and edit a gradebook.\n"
-					+ "Who is the owner of this gradebook?");
+					+ "Would you like to load an existing gradebook or create a new gradebook? (l/n)");
 			sleepLocal();
-			theOwner = sc.nextLine();
-			Gradebook gradeBk = new Gradebook(theOwner);
+			while(true) {
+				scanInput = sc.nextLine();
+				if(scanInput.equals("l") || scanInput.equals("L")) {
+					load();
+					break;
+				}else if(scanInput.equals("n") || scanInput.equals("N")) {
+					System.out.println("Who is the owner of the gradebook?");
+					theOwner = sc.nextLine();
+					gradeBk = new Gradebook(theOwner);
+					break;
+				}else {
+					System.out.println("Please pick either l or n");
+				}
+			}	
 			System.out.println("You can now add a course by typing \"add course\" and add information by typing \"add information\".\n"
 					+ "You can get the information of a course by typing \"get course info\" and get the name of all courses input\n"
 					+ "by typing \"get courses.\"  To see the name of the teacher the gradebook belongs to, \n"
@@ -217,13 +243,11 @@ public class GradebookRun
 					continue;
 					
 				}else if(condensedInput.equals("save")) {
-					serObj.serialize(gradeBk);
-					System.out.println("Data saved");
-				
+					save();	
+					
 				}else if(condensedInput.equals("load")) {
-					serObj.deserialize();
-					gradeBk = serObj.gradeBk;
-					System.out.println("Data loaded");
+					load();
+					
 				}else {
 					System.out.println("Please input a valid command");
 				}

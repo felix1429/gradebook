@@ -27,7 +27,7 @@ public class Serialize
 	}
 
 	
-	public void serialize(Object ... theObj) {
+	public Boolean serialize(Object ... theObj) {
 		try {
 			FileOutputStream fOut = new FileOutputStream(this.path);
 			ObjectOutputStream oOut = new ObjectOutputStream(fOut);
@@ -36,24 +36,29 @@ public class Serialize
 			}
 			oOut.close();
 			fOut.close();
+			return true;
 		}catch(IOException io) {
 			io.printStackTrace();
 			System.out.println("Error, project not saved");
+			return false;
 		}
 	}
 	
-	public void deserialize() {
+	public Boolean deserialize() {
 		try {
 			FileInputStream fIn  = new FileInputStream(this.path);
 			ObjectInputStream oIn = new ObjectInputStream(fIn);
 			this.gradeBk = (Gradebook) oIn.readObject();
 			fIn.close();
 			oIn.close();
+			return true;
 		}catch(IOException io) {
 			io.printStackTrace();
+			return false;
 		}catch(ClassNotFoundException c) {
 			c.printStackTrace();
-			System.out.println("Error in decoding information");
+			System.out.println("Error in loading project");
+			return false;
 		}	
 	}
 }

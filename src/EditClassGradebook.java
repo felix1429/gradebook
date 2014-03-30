@@ -117,8 +117,15 @@ public class EditClassGradebook
 		while(true) {
 			System.out.println("How would you like it weighted (formated .x, ie x%)?"); //asks for user input
 			sleepLocal();
-			scanInput = sc.nextLine();
-			weightVar = Double.parseDouble(scanInput); //converts String scanInput to a double, for use with weight
+			while(true) {
+				try {
+					scanInput = sc.nextLine();
+					weightVar = Double.parseDouble(scanInput); //converts String scanInput to a double, for use with weight
+					break;
+				}catch(NumberFormatException e) {
+					System.out.println("Please input a valid number");
+				}
+			}	
 			if(this.theCourse.addWeightFactor(weightVar)) {
 				return weightVar;
 			}else {
