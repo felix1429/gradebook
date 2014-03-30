@@ -11,8 +11,8 @@ public class GradebookRun
 	public static Gradebook gradeBk;
 	
 	
-	public static Boolean yesOrNo(String input) {
-		while(true) { //loops until either y or n is input
+	public static Boolean yesOrNo(String input) { //loops until either y or n is input
+		while(true) { 
 			if(input.equals("y") || input.equals("Y"))	{
 				return true;
 			}else if(input.equals("n") || input.equals("N")) {
@@ -24,38 +24,42 @@ public class GradebookRun
 		}
 	}
 	
-	private static ClassGradebook getClass(Gradebook bkVar) {
+	private static ClassGradebook getClass(Gradebook bkVar) { //gets classGradebook FROM NAME
 		String scanInput;
-		while(true) {
+		while(true) { //if invalid course, prompts for another
 			System.out.println("What is the name of the course?");
 			sleepLocal();
 			scanInput = sc.nextLine();
-			if(bkVar.ClassMap.containsKey(scanInput)) {
-				for(Map.Entry<String,ClassGradebook> theEntry : bkVar.ClassMap.entrySet()) {
-					if(scanInput.equals(theEntry.getKey()));
+			if(bkVar.ClassMap.containsKey(scanInput)) { //if is in map of classes
+				for(Map.Entry<String,ClassGradebook> theEntry : bkVar.ClassMap.entrySet()) { //loops over entries in collection of classes
+					if(scanInput.equals(theEntry.getKey())); //if input name of class equals map key
 					return theEntry.getValue();
 				}
 			}else {
 				System.out.println(scanInput + " is not a valid course\n"
 						+ "Courses entered in gradebook are");
-				for(Map.Entry<String, ClassGradebook> theEntry : bkVar.ClassMap.entrySet()) {
+				for(Map.Entry<String, ClassGradebook> theEntry : bkVar.ClassMap.entrySet()) { //loops over classes in map, prints names
 					System.out.println(theEntry.getKey());
 				}
 			}
 		}
 	}
 	
-	public static void save() {
-		if(serObj.serialize(gradeBk)) {
-		System.out.println("Data saved");
+	public static void save() { //methods for serializing data
+		if(serObj.serialize(gradeBk)) { //notice if
+			System.out.println("Data saved");
+		}else {
+			System.out.println("whoops, sorry bout that");
 		}
 	}
 	
-	public static void load() {
+	public static void load() { //for loading data. to do: allow users to pick from multiple saved file?
 		if(serObj.deserialize()) {
 			gradeBk = serObj.gradeBk;
 			System.out.println("Data loaded");
-		}	
+		}else {
+			System.out.println("whoops sorry dude");
+		}
 	}
 			
 	
@@ -70,11 +74,11 @@ public class GradebookRun
 		String condensedInput = "";
 		try {
 			System.out.println("Hello!  We will use this program to create and edit a gradebook.\n"
-					+ "Would you like to load an existing gradebook or create a new gradebook? (l/n)");
+					+ "Would you like to load an existing gradebook or create a new gradebook? (l/n)"); //asks for load or new
 			sleepLocal();
 			while(true) {
 				scanInput = sc.nextLine();
-				if(scanInput.equals("l") || scanInput.equals("L")) {
+				if(scanInput.equals("l") || scanInput.equals("L")) { // for this block: figure out way to incorporate it in yesOrNo();
 					load();
 					break;
 				}else if(scanInput.equals("n") || scanInput.equals("N")) {

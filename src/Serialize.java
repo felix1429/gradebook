@@ -14,29 +14,29 @@ public class Serialize
 	Gradebook gradeBk;
 	String path;
 	
-	public Serialize() {
+	public Serialize() { //initializes var
 		pathList.add(homePath); 
 		pathList.add(ITFPPath);
 		for(String i : pathList) { //tests all paths in list and if finds legit one, sets it to 'path' var
 			File file = new File(i);
 			if(file.exists()) {
 				this.path = i; //sets PATH var
-				break;
+				break; //exits
 			}
 		}
 	}
 
 	
-	public Boolean serialize(Object ... theObj) {
+	public Boolean serialize(Object ... theObj) { //method to serialize....not sure if keeping varArgs or not
 		try {
-			FileOutputStream fOut = new FileOutputStream(this.path);
+			FileOutputStream fOut = new FileOutputStream(this.path); //FOS for writing .ser file to .txt file
 			ObjectOutputStream oOut = new ObjectOutputStream(fOut);
 			for(int i = 0;i < theObj.length; i ++) {
-				oOut.writeObject(theObj[i]);
+				oOut.writeObject(theObj[i]); //writes objects
 			}
 			oOut.close();
 			fOut.close();
-			return true;
+			return true; //returns true if completed successfully
 		}catch(IOException io) {
 			io.printStackTrace();
 			System.out.println("Error, project not saved");
@@ -48,14 +48,14 @@ public class Serialize
 		try {
 			FileInputStream fIn  = new FileInputStream(this.path);
 			ObjectInputStream oIn = new ObjectInputStream(fIn);
-			this.gradeBk = (Gradebook) oIn.readObject();
+			this.gradeBk = (Gradebook) oIn.readObject(); //sets gradeBk object to deserialized obj
 			fIn.close();
 			oIn.close();
 			return true;
-		}catch(IOException io) {
+		}catch(IOException io) { //exception for reading file
 			io.printStackTrace();
 			return false;
-		}catch(ClassNotFoundException c) {
+		}catch(ClassNotFoundException c) { //exception for loaded file
 			c.printStackTrace();
 			System.out.println("Error in loading project");
 			return false;
