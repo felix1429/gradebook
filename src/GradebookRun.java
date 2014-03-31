@@ -5,6 +5,7 @@ public class GradebookRun
 	implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	public static String input;
 	static Scanner sc = new Scanner(System.in);
 	public static ClassGradebook classGradebookVar;
 	public static Serialize serObj = new Serialize();
@@ -46,7 +47,10 @@ public class GradebookRun
 	}
 	
 	public static void save() { //methods for serializing data
-		if(serObj.serialize(gradeBk)) { //notice if
+		
+		System.out.println("What name would you like to save the file as?");
+		input = sc.nextLine();
+		if(serObj.serialize(input, gradeBk)) { //notice if
 			System.out.println("Data saved");
 		}else {
 			System.out.println("whoops, sorry bout that");
@@ -54,7 +58,13 @@ public class GradebookRun
 	}
 	
 	public static void load() { //for loading data. to do: allow users to pick from multiple saved file?
-		if(serObj.deserialize()) {
+		System.out.println("The following files are saved");
+		for(File files : serObj.dir.listFiles()) {
+			System.out.println(files.getName());
+		}
+		System.out.println("Which file would you like to load?");
+		input = sc.nextLine();
+		if(serObj.deserialize(input)) {
 			gradeBk = serObj.gradeBk;
 			System.out.println("Data loaded");
 		}else {
