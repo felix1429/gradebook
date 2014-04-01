@@ -90,9 +90,11 @@ public class GradebookRun
 			System.out.println("Hello!  We will use this program to create and edit a gradebook.\n"
 					+ "Would you like to load an existing gradebook (y/n)?"); //asks for load or new
 			sleepLocal();
-			if(yesOrNo(sc.nextLine())) { // checks if user wants to load gradebook
+			scanInput3 = yesOrNo(sc.nextLine());
+			if(scanInput3) { // checks if user wants to load gradebook
 				load();
-			}else {
+			}
+			if(!scanInput3 || !(serObj.dir.list().length > 0)) {
 				System.out.println("Who is the owner of the gradebook?");
 				theOwner = sc.nextLine();
 				gradeBk = new Gradebook(theOwner); //sets  GradebookRun()'s gradeBk var
