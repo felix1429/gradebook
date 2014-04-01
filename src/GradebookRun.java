@@ -58,17 +58,21 @@ public class GradebookRun
 	}
 	
 	public static void load() { //for loading data. to do: allow users to pick from multiple saved file?
-		System.out.println("The following files are saved");
-		for(File files : serObj.dir.listFiles()) {
-			System.out.println(files.getName());
-		}
-		System.out.println("Which file would you like to load?");
-		input = sc.nextLine();
-		if(serObj.deserialize(input)) {
-			gradeBk = serObj.gradeBk;
-			System.out.println("Data loaded");
+		if(serObj.dir.list().length > 0) {
+			System.out.println("The following files are saved");
+			for(File files : serObj.dir.listFiles()) {
+				System.out.println(files.getName());
+			}
+			System.out.println("Which file would you like to load?");
+			input = sc.nextLine();
+			if(serObj.deserialize(input)) {
+				gradeBk = serObj.gradeBk;
+				System.out.println("Data loaded");
+			}else {
+				System.out.println("whoops sorry dude");
+			}
 		}else {
-			System.out.println("whoops sorry dude");
+			System.out.println("There are no files saved");
 		}
 	}
 			
