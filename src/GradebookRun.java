@@ -84,21 +84,14 @@ public class GradebookRun
 		String condensedInput = "";
 		try {
 			System.out.println("Hello!  We will use this program to create and edit a gradebook.\n"
-					+ "Would you like to load an existing gradebook or create a new gradebook? (l/n)"); //asks for load or new
+					+ "Would you like to load an existing gradebook (y/n)?"); //asks for load or new
 			sleepLocal();
-			while(true) {
-				scanInput = sc.nextLine();
-				if(scanInput.equals("l") || scanInput.equals("L")) { // for this block: figure out way to incorporate it in yesOrNo();
-					load();
-					break;
-				}else if(scanInput.equals("n") || scanInput.equals("N")) {
-					System.out.println("Who is the owner of the gradebook?");
-					theOwner = sc.nextLine();
-					gradeBk = new Gradebook(theOwner);
-					break;
-				}else {
-					System.out.println("Please pick either l or n");
-				}
+			if(yesOrNo(sc.nextLine())) { // checks if user wants to load gradebook
+				load();
+			}else {
+				System.out.println("Who is the owner of the gradebook?");
+				theOwner = sc.nextLine();
+				gradeBk = new Gradebook(theOwner); //sets  GradebookRun()'s gradeBk var
 			}	
 			System.out.println("You can now add a course by typing \"add course\" and add information by typing \"add information\".\n"
 					+ "You can get the information of a course by typing \"get course info\" and get the name of all courses input\n"
