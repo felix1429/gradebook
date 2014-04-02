@@ -6,6 +6,7 @@ public class GradebookRun
 
 	private static final long serialVersionUID = 1L;
 	public static String input;
+	public static String list = "";
 	static Scanner sc = new Scanner(System.in);
 	public static ClassGradebook classGradebookVar;
 	public static Serialize serObj = new Serialize();
@@ -25,6 +26,13 @@ public class GradebookRun
 		}
 	}
 	
+	private static String getCourses() {
+		for(String courseName : gradeBk.ClassMap.keySet()) {
+			list += courseName + "\n";
+		}
+		return list;
+	}
+	
 	private static ClassGradebook getClass(Gradebook bkVar) { //gets classGradebook FROM NAME
 		String scanInput;
 		while(true) { //if invalid course, prompts for another
@@ -39,9 +47,7 @@ public class GradebookRun
 			}else {
 				System.out.println(scanInput + " is not a valid course\n"
 						+ "Courses entered in gradebook are");
-				for(Map.Entry<String, ClassGradebook> theEntry : bkVar.ClassMap.entrySet()) { //loops over classes in map, prints names
-					System.out.println(theEntry.getKey());
-				}
+				System.out.println(getCourses());
 			}
 		}
 	}
@@ -93,8 +99,12 @@ public class GradebookRun
 			scanInput3 = yesOrNo(sc.nextLine());
 			if(scanInput3) { // checks if user wants to load gradebook
 				load();
+				if(!(serObj.dir.list().length > 0)) {
+					System.out.println("Creating new gradebook");
+					scanInput3 = false;
+				}
 			}
-			if(!scanInput3 || !(serObj.dir.list().length > 0)) {
+			if(!scanInput3) {
 				System.out.println("Who is the owner of the gradebook?");
 				theOwner = sc.nextLine();
 				gradeBk = new Gradebook(theOwner); //sets  GradebookRun()'s gradeBk var
@@ -215,10 +225,8 @@ public class GradebookRun
 					if(gradeBk.ClassMap.isEmpty()) {
 						System.out.println("There are no courses entered in the gradebook");
 					}else {
-						for(String courseName : gradeBk.ClassMap.keySet()) {
-							System.out.println(courseName);
-						}
-					}	
+						System.out.println(getCourses());
+					}
 					
 				
 				}else if(condensedInput.equals("getcourseinfo")) { //gets all info of course
@@ -238,6 +246,8 @@ public class GradebookRun
 						}catch(NullPointerException e) {
 							System.out.println("There is no course named " + scanInput + "\n"
 									+ "Please input a valid course");
+							System.out.println("This is a list of all of the courses input\n"
+									+ getCourses());
 						}
 					}	
 					
