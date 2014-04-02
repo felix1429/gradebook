@@ -35,17 +35,20 @@ public class EditClassGradebook
 				+ "For help type \"help\"\n"
 				+ "Exit by typing \"exit\"");
 		
-		System.out.println("You can now add the initial batch of students.  Type \"done\" when finished"); //prompts user to input students
-		while(true) {
-			addStudent();
-			System.out.println("Add another (y/n)?\n");
-			scanInput = sc.nextLine();
-			if(GradebookRun.yesOrNo(scanInput)) { //prompts for y or n
-				continue;
-			}else {
-				System.out.println("You can now begin to use the gradebook as explained");
-				break;
+		if(this.theCourse.isFirstEdit) { //if first time editing gb, prompts for students
+			System.out.println("You can now add the initial batch of students.  Type \"done\" when finished"); //prompts user to input students
+			while(true) {
+				addStudent();
+				System.out.println("Add another (y/n)?\n");
+				scanInput = sc.nextLine();
+				if(GradebookRun.yesOrNo(scanInput)) { //prompts for y or n
+					continue;
+				}else {
+					System.out.println("You can now begin to use the gradebook as explained");
+					break;
+				}
 			}
+			this.theCourse.isFirstEdit = false;
 		}	
 	}
 	
@@ -339,6 +342,7 @@ public class EditClassGradebook
 	}
 	
 	public boolean exit() { //exits editing of course
+		//called in gradebookRun(), if true is returned then breaks out of loop
 		System.out.println("Are you finished editing " + this.theCourse.courseName + " (y/n)?");
 		sleepLocal();
 		scanInput = sc.nextLine();
@@ -353,7 +357,6 @@ public class EditClassGradebook
 				System.out.println("Please pick \"y\" or \"n\"");
 			}
 		}
-		
 	}
 	
 	public void help() { //reprints instructions

@@ -11,6 +11,7 @@ public class ClassGradebook
 	public String courseName;
 	public List<Double> weightGroup = new ArrayList<Double>();
 	public Boolean isWeighted;
+	public Boolean isFirstEdit; //bool for editClassGradebook to see if is first time editing
 	public Map<String, Student> studentMap = new HashMap<String, Student>(); //creates map of students
 
 	public ClassGradebook(String courseName, String owner,final Boolean startWeight) {
@@ -18,6 +19,7 @@ public class ClassGradebook
 		this.courseName = courseName;
 		this.studentCount = 0;
 		this.isWeighted = startWeight;
+		this.isFirstEdit = true;
 	}	
 
 	private String removeLeadingZeros(Double input) { //regex that removes leading zeros from double, applied to assignment weights for printing

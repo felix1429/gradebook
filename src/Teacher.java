@@ -11,6 +11,5 @@ public class Teacher
 	
 	Teacher(String startName, Gradebook startGradebook) {
 		this.name = startName;
-		
 	}
 }

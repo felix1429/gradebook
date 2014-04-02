@@ -41,8 +41,9 @@ public class GradebookRun
 			scanInput = sc.nextLine();
 			if(bkVar.ClassMap.containsKey(scanInput)) { //if is in map of classes
 				for(Map.Entry<String,ClassGradebook> theEntry : bkVar.ClassMap.entrySet()) { //loops over entries in collection of classes
-					if(scanInput.equals(theEntry.getKey())); //if input name of class equals map key
-					return theEntry.getValue();
+					if(scanInput.equals(theEntry.getKey())) { //if input name of class equals map key
+						return theEntry.getValue();
+					}
 				}
 			}else {
 				System.out.println(scanInput + " is not a valid course\n"
@@ -63,7 +64,7 @@ public class GradebookRun
 		}
 	}
 	
-	public static void load() { //for loading data. to do: allow users to pick from multiple saved file?
+	public static void load() { //for loading data
 		if(serObj.dir.list().length > 0) {
 			System.out.println("The following files are saved");
 			for(File files : serObj.dir.listFiles()) {
@@ -100,12 +101,12 @@ public class GradebookRun
 			if(scanInput3) { // checks if user wants to load gradebook
 				load();
 				if(!(serObj.dir.list().length > 0)) {
-					System.out.println("Creating new gradebook");
 					scanInput3 = false;
 				}
 			}
 			if(!scanInput3) {
-				System.out.println("Who is the owner of the gradebook?");
+				System.out.println("Creating new gradebook\n"
+				+ "Who is the owner of the gradebook?");
 				theOwner = sc.nextLine();
 				gradeBk = new Gradebook(theOwner); //sets  GradebookRun()'s gradeBk var
 			}	
@@ -206,7 +207,8 @@ public class GradebookRun
 						
 						}else if(condensedInput.equals("exit")) {
 							if(temp.exit()) {  //prompts user to make sure they want to exit, returns boolean
-								break;
+								temp = null; //destroys editClassGradebook object
+								break; //breaks from input loop
 							}	
 						}else {
 							System.out.println("Please input a valid command");
