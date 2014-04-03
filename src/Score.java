@@ -12,7 +12,11 @@ public class Score
 		LtrGrade theLetter = new LtrGrade(inputGrade);
 		this.numGrade = inputGrade;
 		this.letterGrade = theLetter;
-		this.percentGrade = Long.toString(Math.round(inputGrade * 100)) + "%";
+		if(inputGrade.equals(0)) {
+			percentGrade = "0";
+		}else {
+			this.percentGrade = Long.toString(Math.round(inputGrade * 100)) + "%";
+		}	
 	}
 	
 	public Double getNumGrade() {

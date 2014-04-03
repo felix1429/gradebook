@@ -34,51 +34,61 @@ public class Student
 		String tempNumStr = "";
 		Integer firstInt = 0;
 		Integer secondInt = 0;
-		char[] aCharArray = startScore.toCharArray(); //turns input into array so it can be iterated over
-		for(char scoreChar : aCharArray) { // parses through string to get int before the "" and the int after
-			if(Character.toString(scoreChar).equals("/")) { //separates between first and second int
-				try {
-					firstInt = Integer.parseInt(tempNumStr);
-				}catch(NumberFormatException e) {
-					return false;
+		if(Integer.parseInt(startScore) == 0) {
+			return true;
+		}else {
+			char[] aCharArray = startScore.toCharArray(); //turns input into array so it can be iterated over
+			for(char scoreChar : aCharArray) { // parses through string to get int before the "" and the int after
+				if(Character.toString(scoreChar).equals("/")) { //separates between first and second int
+					try {
+						firstInt = Integer.parseInt(tempNumStr);
+					}catch(NumberFormatException e) {
+						return false;
+					}
+					if(firstInt == null) { //makes sure that score input is valid
+						return false;
+					}
+					tempNumStr = ""; //resets tempNumStr so it can get value of secondInt
+				}else {
+					tempNumStr += Character.toString(scoreChar); //concats integer in case numbers are 2 digit
 				}
-				if(firstInt == null) { //makes sure that score input is valid
-					return false;
-				}
-				tempNumStr = ""; //resets tempNumStr so it can get value of secondInt
-			}else {
-				tempNumStr += Character.toString(scoreChar); //concats integer in case numbers are 2 digit
 			}
-		}
-		try {
-			secondInt = Integer.parseInt(tempNumStr);
-		}catch(NumberFormatException e) {
-			return false;
-		}
-		if(secondInt == null) { //makes sure that score input is valid
-			return false;
-		}
-		return true;
+			try {
+				secondInt = Integer.parseInt(tempNumStr);
+			}catch(NumberFormatException e) {
+				return false;
+			}
+			if(secondInt == null) { //makes sure that score input is valid
+				return false;
+			}
+			return true;
+		}	
 	}
 	
 	
 	public Score getScore(String startScore) { //get score value from string x/y
 		//run testScore() first
 		String tempNumStr = "";
+		Score aScore;
 		Integer firstInt = 0;
 		Integer secondInt = 0;
-		char[] aCharArray = startScore.toCharArray(); //turns input into array so it can be iterated over
-		for(char scoreChar : aCharArray) { // parses through string to get int before the "" and the int after
-			if(Character.toString(scoreChar).equals("/")) { //separates between first and second int
-				firstInt = Integer.parseInt(tempNumStr);
-				tempNumStr = ""; //resets tempNumStr so it can get value of secondInt
-			}else {
-				tempNumStr += Character.toString(scoreChar); //concats integer in case numbers are 2 digit
+		if(Integer.parseInt(startScore) == 0) {
+			aScore = new Score(0.0);
+			return aScore;
+		}else {
+			char[] aCharArray = startScore.toCharArray(); //turns input into array so it can be iterated over
+			for(char scoreChar : aCharArray) { // parses through string to get int before the "" and the int after
+				if(Character.toString(scoreChar).equals("/")) { //separates between first and second int
+					firstInt = Integer.parseInt(tempNumStr);
+					tempNumStr = ""; //resets tempNumStr so it can get value of secondInt
+				}else {
+					tempNumStr += Character.toString(scoreChar); //concats integer in case numbers are 2 digit
+				}
 			}
-		}
-		secondInt = Integer.parseInt(tempNumStr); //gets Integer from concated string tempNumStr
-		Score aScore = new Score(((double)firstInt / (double)secondInt)); //calculates scoreAssignment theNewOne = new Assignment(testScore(startScore));
-		return aScore;
+			secondInt = Integer.parseInt(tempNumStr); //gets Integer from concated string tempNumStr
+			aScore = new Score(((double)firstInt / (double)secondInt)); //calculates scoreAssignment theNewOne = new Assignment(testScore(startScore));
+			return aScore;
+		}	
 	}	
 
 	
@@ -86,6 +96,11 @@ public class Student
 		scoreVar = getScore(startScore); //gets score
 		if(!weightOrNot) { //if not weighted overrides argument and sets weight to one
 			startWeight = 1.0;
+		}
+		if(scoreVar.getNumGrade().equals(0)) {
+			System.out.println("Is the missing assignment excused?");
+			
+			MissingAssignment theNewOne = new MissingAssignment(scoreVar, this.testCount, startName, weightOrNot, startWeight);
 		}
 		Assignment theNewOne = new Assignment(scoreVar, this.testCount, startName, weightOrNot, startWeight); //creates new assignment
 		this.assignmentMap.put(this.testCount, theNewOne); //adds assignment with number and score
@@ -181,6 +196,7 @@ public class Student
 		String assignmentOutput = "";
 		String output;
 		String passingOutput;
+		String gradeVar = "";
 		String passingVar;
 		Integer assignmentCount = 1;
 		nameOutput = "Name: " + this.name + "\n"; //student's name
@@ -188,10 +204,19 @@ public class Student
 			output = "No assignments added";
 		}else {
 			for(Assignment a : assignmentMap.values()) { //gets score of each assignment
+				if(a instanceof MissingAssignment) {
+					if(((MissingAssignment) a).isExcused) {
+						gradeVar = "Missing but excused";
+					}else if(!(((MissingAssignment) a).isExcused)){
+						gradeVar = "Missing and not excused";
+					}
+				}else {
+					gradeVar = a.assignmentScore.percentGrade + ", " + a.assignmentScore.letterGrade.gradePronoun + " " //gets percent score and pronoun
+							+ a.assignmentScore.letterGrade.actualLetter + "\n";
+				}			
 				assignmentOutput += "Assignment " + assignmentCount + ", \"" + a.name + "\"" //gets assignment number and name
 					+ (a.finalWeightBool ? (" (" + removeLeadingZeros((double)Math.round(a.theAssignmentWeight.weightFactor * 100) / 100) + ")") : "") + ": " //if weighted, gets weight factor
-					+ a.assignmentScore.percentGrade + ", " + a.assignmentScore.letterGrade.gradePronoun + " " //gets percent score and pronoun
-					+ a.assignmentScore.letterGrade.actualLetter + "\n";  //gets letter grade
+					+ gradeVar;  //gets letter grade
 				assignmentCount ++; //increments counter
 			}
 			this.grade = this.getGrade();
