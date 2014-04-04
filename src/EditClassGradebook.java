@@ -6,7 +6,7 @@ public class EditClassGradebook
 	
 	private static final long serialVersionUID = 1L;
 	public ClassGradebook theCourse;
-	Scanner sc = new Scanner(System.in);
+	static Scanner sc = new Scanner(System.in);
 	String scanInput = "";
 	String stringVar = "";
 	Assignment assignmentVar;
@@ -15,6 +15,7 @@ public class EditClassGradebook
 	String output = "";
 	Weight weightVar;
 	Score scoreVar;
+	Boolean boolVar;
 	List<Student> studentList = new ArrayList<Student>();
 	List<String> assignmentNameList = new ArrayList<String>();
 	List<Assignment> assignmentList = new ArrayList<Assignment>();
@@ -156,6 +157,19 @@ public class EditClassGradebook
 		
 	}
 	
+	public static Boolean yesOrNo(String scanInput) { //loops until either y or n is input
+		while(true) { 
+			if(scanInput.equals("y") || scanInput.equals("Y"))	{
+				return true;
+			}else if(scanInput.equals("n") || scanInput.equals("N")) {
+				return false;
+			}else {
+				System.out.println("Please pick either y or n");
+				scanInput = sc.nextLine();
+			}
+		}
+	}
+	
 	public void addStudent() { //gets student name and then creates object
 		System.out.println("What is the name of the new student?");
 		sleepLocal();
@@ -235,12 +249,16 @@ public class EditClassGradebook
 	public void addAssignment(Student theStudent) { //adds assignment if student provided
 		if(isStudentInMap(theStudent)) {
 			scanInput = getScore(); //not scanner, just using variable that is a string
+			if(Integer.parseInt(scanInput) == 0) {
+				System.out.println("Is the assignment excused?");
+				boolVar = yesOrNo(sc.nextLine());
+			}
 			System.out.println("What is the name of the assignment?");
 			stringVar = sc.nextLine();
 			if(this.theCourse.isWeighted) {
-				theStudent.addAssignment(scanInput, stringVar, true, getWeight());
+				theStudent.addAssignment(scanInput, stringVar, true, getWeight(), boolVar);
 			}else {
-				theStudent.addAssignment(scanInput, stringVar, false, 1.0);
+				theStudent.addAssignment(scanInput, stringVar, false, 1.0, boolVar);
 			}
 			//calls methods getScore() and getWeight()
 			System.out.println("Assignment added\n");

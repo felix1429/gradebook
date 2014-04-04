@@ -6,11 +6,13 @@ public class Student
 
 	private static final long serialVersionUID = 1L;
 	Score grade;
+	Assignment assignmentVar;
 	Integer testCountVar = 0;
 	public String name;
 	public Integer testCount;
 	Boolean passingBool;
 	Score scoreVar;
+	Boolean testBool;
 	Weight theWeight;
 	ClassGradebook gradeBk;
 	Map<Integer, Assignment> assignmentMap = new HashMap<Integer, Assignment>(); //map of assignments for each student
@@ -92,18 +94,21 @@ public class Student
 	}	
 
 	
-	public void addAssignment(String startScore, String startName, Boolean weightOrNot, Double startWeight) { // score must be formated as x/y
+	public void addAssignment(String startScore, String startName, Boolean weightOrNot, Double startWeight, Boolean exscused) { // score must be formated as x/y
 		scoreVar = getScore(startScore); //gets score
 		if(!weightOrNot) { //if not weighted overrides argument and sets weight to one
 			startWeight = 1.0;
 		}
 		if(scoreVar.getNumGrade().equals(0)) {
 			System.out.println("Is the missing assignment excused?");
-			
+			yesOrNo(sc.nextLine());
 			MissingAssignment theNewOne = new MissingAssignment(scoreVar, this.testCount, startName, weightOrNot, startWeight);
-		}
-		Assignment theNewOne = new Assignment(scoreVar, this.testCount, startName, weightOrNot, startWeight); //creates new assignment
-		this.assignmentMap.put(this.testCount, theNewOne); //adds assignment with number and score
+			assignmentVar = theNewOne;
+		}else {
+			Assignment theNewOne = new Assignment(scoreVar, this.testCount, startName, weightOrNot, startWeight); //creates new assignment
+			assignmentVar = theNewOne;
+		}	
+		this.assignmentMap.put(this.testCount, assignmentVar); //adds assignment with number and score
 		this.testCount ++; //increments variable that keeps track of what number the assignment is for the student
 		this.grade = this.getGrade();
 	}
