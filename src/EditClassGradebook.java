@@ -227,6 +227,13 @@ public class EditClassGradebook
 					sleepLocal();
 					scanInput = sc.nextLine();
 					if(theEntry.getValue().testScore(scanInput)) { //tests if is valid score or not
+						if(scanInput.equals(0)) {
+							System.out.println("Is the assignment excused?");
+							boolVar = yesOrNo(sc.nextLine());
+							if(!boolVar) {
+								scanInput = Integer.toString(-1);
+							}
+						}
 						scoreArray[i] = scanInput; //adds score to array
 						i ++; //counter
 						break;
@@ -249,7 +256,7 @@ public class EditClassGradebook
 	public void addAssignment(Student theStudent) { //adds assignment if student provided
 		if(isStudentInMap(theStudent)) {
 			scanInput = getScore(); //not scanner, just using variable that is a string
-			if(Integer.parseInt(scanInput) == 0) {
+			if(scanInput == "0") {
 				System.out.println("Is the assignment excused?");
 				boolVar = yesOrNo(sc.nextLine());
 			}
@@ -320,6 +327,7 @@ public class EditClassGradebook
 			for(Student theStudent : studentList) {
 				studentVar = theStudent;
 				for(Assignment iter : allAssignmentList) {
+					if(iter instanceof MissingAssignment)
 					if(scanInput.equals(iter.name) || scanInput.equals(iter.assignmentNumber)) {
 						assignmentVar = iter;
 					}	

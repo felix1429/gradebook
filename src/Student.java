@@ -36,7 +36,7 @@ public class Student
 		String tempNumStr = "";
 		Integer firstInt = 0;
 		Integer secondInt = 0;
-		if(Integer.parseInt(startScore) == 0) {
+		if(startScore == "0") {
 			return true;
 		}else {
 			char[] aCharArray = startScore.toCharArray(); //turns input into array so it can be iterated over
@@ -74,7 +74,7 @@ public class Student
 		Score aScore;
 		Integer firstInt = 0;
 		Integer secondInt = 0;
-		if(Integer.parseInt(startScore) == 0) {
+		if(startScore == "0") {
 			aScore = new Score(0.0);
 			return aScore;
 		}else {
@@ -94,15 +94,11 @@ public class Student
 	}	
 
 	
-	public void addAssignment(String startScore, String startName, Boolean weightOrNot, Double startWeight, Boolean exscused) { // score must be formated as x/y
+	public void addAssignment(String startScore, String startName, Boolean weightOrNot, Double startWeight, Boolean excused) { // score must be formated as x/y
 		scoreVar = getScore(startScore); //gets score
 		if(!weightOrNot) { //if not weighted overrides argument and sets weight to one
 			startWeight = 1.0;
-		}
-		if(scoreVar.getNumGrade().equals(0)) {
-			System.out.println("Is the missing assignment excused?");
-			yesOrNo(sc.nextLine());
-			MissingAssignment theNewOne = new MissingAssignment(scoreVar, this.testCount, startName, weightOrNot, startWeight);
+			MissingAssignment theNewOne = new MissingAssignment(scoreVar, this.testCount, startName, weightOrNot, startWeight, excused);
 			assignmentVar = theNewOne;
 		}else {
 			Assignment theNewOne = new Assignment(scoreVar, this.testCount, startName, weightOrNot, startWeight); //creates new assignment

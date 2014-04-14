@@ -10,6 +10,7 @@ public class ClassGradebook
 	public String owner;
 	public String courseName;
 	public List<Double> weightGroup = new ArrayList<Double>();
+	public Boolean boolVar;
 	public Boolean isWeighted;
 	public Boolean isFirstEdit; //bool for editClassGradebook to see if is first time editing
 	public Map<String, Student> studentMap = new HashMap<String, Student>(); //creates map of students
@@ -56,7 +57,16 @@ public class ClassGradebook
 	public void addAssignmentAll(Double startWeight, String startName, Boolean weightBool, String ... startScore) { //adds assignment to all students
 		Integer i = 0;
 		for(Student theStudent : this.studentMap.values()) { //loops through given scores
-			theStudent.addAssignment(startScore[i], startName, weightBool, startWeight);
+			if(startScore[i] == "0" || startScore[i] == "-1") {
+				switch(startScore[i]) {
+					case("0"):
+						boolVar = false;
+					case("-1"):
+						boolVar = true;
+				}
+				theStudent.addAssignment("0", startName, weightBool, startWeight, boolVar);
+			}
+			theStudent.addAssignment(startScore[i], startName, weightBool, startWeight, true);
 			i ++;
 		}	
 	}	
