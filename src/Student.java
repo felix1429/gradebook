@@ -111,7 +111,9 @@ public class Student
 	
 	
 	public Score getGrade() { //returns a grade as .xx, made to be formated as percent
-		String whichWeight = "";
+		Double missingAverage = 0.0;
+		Integer missingCount = 0;
+		Integer missingTotal = 0;
 		Double weightAverage = 0.0;
 		Integer weightCount = 0;
 		Double weightTotal = 0.0;
@@ -126,42 +128,35 @@ public class Student
 		Boolean finalOutput = false;
 		Double finalGradeVar;
 		for(Map.Entry<Integer, Assignment> entry : this.assignmentMap.entrySet()) { //loops through entries in map
-			if(entry.getValue().finalWeightBool.equals(true)) { //sees if assignment is weighted and loops to find weight value if so
-				if(weightCount.equals(0) || (weightCount.equals(1) && ((entry.getValue().finalWeight) == weightFactor))) { //if no weights entered or if only weights entered are the same
-					weightFactor = entry.getValue().finalWeight; //gets weight value
-					weightCount ++;
-					whichWeight = "weightCount";
-					weightTotal += entry.getValue().getScore().numGrade; //adds score to running total
-				}else if(entry.getValue().finalWeight == weightFactor && (!entry.getValue().finalWeight.equals(weightFactor1))) { //if is first weight value, add
-					weightCount ++;
-					whichWeight = "weightCount";
-					weightTotal += entry.getValue().getScore().numGrade;
-				}else if(((entry.getValue().finalWeight) != weightFactor) || (entry.getValue().finalWeight == weightFactor1)) { //if is second weight value
-					weightFactor1 = entry.getValue().finalWeight;
-					weight1Count ++;
-					whichWeight = "weight1Count";
-					weight1Total += entry.getValue().getScore().numGrade;
-				}
-			}else if(entry.getValue().finalWeightBool.equals(false)) { //if not weighted just takes average
-				unweightTotal += entry.getValue().assignmentScore.numGrade;
-				unweightCount ++;
-				whichWeight = "unweightCount";
-				finalOutput = true;
-			}
-			if(entry.getValue() instanceof MissingAssignment) { // if instance of missingAssignment, checks if excused or not
-				if(((MissingAssignment) entry.getValue()).getExcusedBool()) { //if excused
-					if(whichWeight == "weightCount") { //effectively brings the count to state as if it did not increment 
-						weightCount --;
-					}else if(whichWeight == "weight1Count") {
-						weight1Count --;
-					}else if(whichWeight == "unweightCount") {
-						unweightCount --;
-					}else {
-						continue;
+			if(entry.getValue() instanceof MissingAssignment) {
+				if(entry.getValue().assignmentScore.numGrade != 0) {
+					
+				}else {	
+					if(!((MissingAssignment) entry.getValue()).getExcusedBool()) { //if NOT excused
+						missingCount ++;
 					}
+					missingTotal ++;
+				}	
+			}else {
+				if(entry.getValue().finalWeightBool.equals(true)) { //sees if assignment is weighted and loops to find weight value if so
+					if(weightCount.equals(0) || (weightCount.equals(1) && ((entry.getValue().finalWeight) == weightFactor))) { //if no weights entered or if only weights entered are the same
+						weightFactor = entry.getValue().finalWeight; //gets weight value
+						weightCount ++;
+						weightTotal += entry.getValue().getScore().numGrade; //adds score to running total
+					}else if(entry.getValue().finalWeight == weightFactor && (!entry.getValue().finalWeight.equals(weightFactor1))) { //if is first weight value, add
+						weightCount ++;
+						weightTotal += entry.getValue().getScore().numGrade;
+					}else if(((entry.getValue().finalWeight) != weightFactor) || (entry.getValue().finalWeight == weightFactor1)) { //if is second weight value
+						weightFactor1 = entry.getValue().finalWeight;
+						weight1Count ++;
+						weight1Total += entry.getValue().getScore().numGrade;
+					}
+				}else if(entry.getValue().finalWeightBool.equals(false)) { //if not weighted just takes average
+					unweightTotal += entry.getValue().assignmentScore.numGrade;
+					unweightCount ++;
+					finalOutput = true;
 				}
-			}
-			whichWeight = "";
+			}	
 		}  
 		if(finalOutput == true) { //if assignments are not weighted returns unweightAverage
 			unweightAverage = unweightTotal / unweightCount;

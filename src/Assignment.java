@@ -39,4 +39,9 @@ public class Assignment
 	public Score getScore() {
 		return assignmentScore;
 	}
+	
+	public void setWeight(Double startWeight) {
+		this.theAssignmentWeight.weightFactor = startWeight;
+		this.finalWeight = startWeight;
+	}
 }

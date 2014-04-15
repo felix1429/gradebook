@@ -327,16 +327,27 @@ public class EditClassGradebook
 			for(Student theStudent : studentList) {
 				studentVar = theStudent;
 				for(Assignment iter : allAssignmentList) {
-					if(iter instanceof MissingAssignment)
 					if(scanInput.equals(iter.name) || scanInput.equals(iter.assignmentNumber)) {
 						assignmentVar = iter;
+						break;
 					}	
+				}
+				if(assignmentVar instanceof MissingAssignment) { //asks if user wants to decrease the worth of assignment
+					System.out.println("This is a missing assignment for" + studentVar.name + "\n"
+							+ "Would you like to decrease the amount of credit for it?");
+					boolVar = yesOrNo(sc.nextLine());
+					if(boolVar) { //works by reducing weight percentage
+						System.out.println("What percentage would you like to take off?");
+						scanInput = sc.nextLine();
+						assignmentVar.setWeight(assignmentVar.finalWeight * Double.parseDouble(scanInput)); //sets weight of assignment to percentage less than originally specified
+					}
 				}
 				if(studentList.size() > 1) { //if rescoring for all, prints name of student 
 					System.out.println("Enter a score for " + studentVar.name);
 				}
+				
 				stringVar = getScore(); //gets new score
-				assignmentVar.rescoreAssignment(studentVar.getScore(stringVar));
+				assignmentVar.rescoreAssignment(studentVar.getScore(stringVar)); //does actual rescoring
 				System.out.println("Score saved");
 			}	
 		}
