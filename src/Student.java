@@ -98,12 +98,14 @@ public class Student
 		scoreVar = getScore(startScore); //gets score
 		if(!weightOrNot) { //if not weighted overrides argument and sets weight to one
 			startWeight = 1.0;
-			MissingAssignment theNewOne = new MissingAssignment(scoreVar, this.testCount, startName, weightOrNot, startWeight, excused);
+		}
+		if(startScore.equals(0)) {
+			Assignment theNewOne = new Assignment(scoreVar, this.testCount, startName, weightOrNot, startWeight);
 			assignmentVar = theNewOne;
 		}else {
-			Assignment theNewOne = new Assignment(scoreVar, this.testCount, startName, weightOrNot, startWeight); //creates new assignment
+			MissingAssignment theNewOne = new MissingAssignment(scoreVar, this.testCount, startName, weightOrNot, startWeight, excused);
 			assignmentVar = theNewOne;
-		}	
+		}		
 		this.assignmentMap.put(this.testCount, assignmentVar); //adds assignment with number and score
 		this.testCount ++; //increments variable that keeps track of what number the assignment is for the student
 		this.grade = this.getGrade();
@@ -112,6 +114,7 @@ public class Student
 	
 	public Score getGrade() { //returns a grade as .xx, made to be formated as percent
 		Double missingAverage = 0.0;
+		Double tempAverage = 0.0;
 		Integer missingCount = 0;
 		Integer missingTotal = 0;
 		Double weightAverage = 0.0;
@@ -130,7 +133,7 @@ public class Student
 		for(Map.Entry<Integer, Assignment> entry : this.assignmentMap.entrySet()) { //loops through entries in map
 			if(entry.getValue() instanceof MissingAssignment) {
 				if(entry.getValue().assignmentScore.numGrade != 0) {
-					
+					tempAverage += entry.getValue().assignmentScore.numGrade * entry.getValue().finalWeight;
 				}else {	
 					if(!((MissingAssignment) entry.getValue()).getExcusedBool()) { //if NOT excused
 						missingCount ++;
@@ -157,18 +160,23 @@ public class Student
 					finalOutput = true;
 				}
 			}	
-		}  
+		} 
+		
 		if(finalOutput == true) { //if assignments are not weighted returns unweightAverage
+			unweightTotal += tempAverage;
+			unweightCount += missingTotal - missingCount;
 			unweightAverage = unweightTotal / unweightCount;
 			finalGradeVar = unweightAverage;
 		}else {
+			
 			if(weight1Count.equals(0)) { //if only one weight given for assignments, is only assignment
 				weight1Count = 1; //sets to zero (var is null otherwise)
 				weightFactor = 1.0; //assignment gets full weight if is only one
 			}
 			weight1Average = (weight1Total / weight1Count) * weightFactor1;
 			weightAverage = (weightTotal / weightCount) * weightFactor;
-			finalGradeVar = weightAverage + weight1Average;
+			missingAverage = tempAverage / (weight1Count + weightCount + (missingTotal - missingCount)); //((tempAverage / (weight1Count + weightCount + (missingTotal - missingCount))) / weight1Count + weightCount + missingTotal + (missingTotal - missingCount));
+			finalGradeVar = weightAverage + weight1Average + missingAverage;
 		}
 		Score theGrade = new Score(finalGradeVar); //creates score
 		this.grade = theGrade; //adds value to student's overall grade

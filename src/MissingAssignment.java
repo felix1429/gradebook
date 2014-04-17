@@ -10,7 +10,7 @@ public class MissingAssignment
 	 // if not excused, put in as zero, counting towards total grade
 
 	public MissingAssignment(Score inputScore, Integer startNumber, String startName, //constructor on multiple lines
-			Boolean startSetWeight, Double startingWeight, Boolean isExcused) {		  // because of length
+			Boolean startSetWeight, Double startingWeight, Boolean isExcused) {		 // because of length
 		super(inputScore, startNumber, startName, startSetWeight, startingWeight);  //super for Assignment() class
 		this.isExcused = isExcused;
 	}
