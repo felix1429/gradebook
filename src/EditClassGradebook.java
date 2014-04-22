@@ -256,7 +256,7 @@ public class EditClassGradebook
 	public void addAssignment(Student theStudent) { //adds assignment if student provided
 		if(isStudentInMap(theStudent)) {
 			scanInput = getScore(); //not scanner, just using variable that is a string
-			if(scanInput == "0") {
+			if(scanInput.equals(0)) {
 				System.out.println("Is the assignment excused?");
 				boolVar = yesOrNo(sc.nextLine());
 			}

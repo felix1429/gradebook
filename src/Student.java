@@ -100,10 +100,10 @@ public class Student
 			startWeight = 1.0;
 		}
 		if(startScore.equals(0)) {
-			Assignment theNewOne = new Assignment(scoreVar, this.testCount, startName, weightOrNot, startWeight);
+			Assignment theNewOne = new MissingAssignment(scoreVar, this.testCount, startName, weightOrNot, startWeight, excused);
 			assignmentVar = theNewOne;
 		}else {
-			MissingAssignment theNewOne = new MissingAssignment(scoreVar, this.testCount, startName, weightOrNot, startWeight, excused);
+			Assignment theNewOne = new Assignment(scoreVar, this.testCount, startName, weightOrNot, startWeight);
 			assignmentVar = theNewOne;
 		}		
 		this.assignmentMap.put(this.testCount, assignmentVar); //adds assignment with number and score
