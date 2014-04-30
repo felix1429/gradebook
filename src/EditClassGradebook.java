@@ -227,7 +227,7 @@ public class EditClassGradebook
 					sleepLocal();
 					scanInput = sc.nextLine();
 					if(theEntry.getValue().testScore(scanInput)) { //tests if is valid score or not
-						if(scanInput.equals(0)) {
+						if(scanInput.equals("0")) {
 							System.out.println("Is the assignment excused?");
 							boolVar = yesOrNo(sc.nextLine());
 							if(!boolVar) {
@@ -332,16 +332,6 @@ public class EditClassGradebook
 						break;
 					}	
 				}
-				if(assignmentVar instanceof MissingAssignment) { //asks if user wants to decrease the worth of assignment
-					System.out.println("This is a missing assignment for" + studentVar.name + "\n"
-							+ "Would you like to decrease the amount of credit for it?");
-					boolVar = yesOrNo(sc.nextLine());
-					if(boolVar) { //works by reducing weight percentage
-						System.out.println("What percentage would you like to take off?");
-						scanInput = sc.nextLine();
-						assignmentVar.setWeight(assignmentVar.finalWeight * Double.parseDouble(scanInput)); //sets weight of assignment to percentage less than originally specified
-					}
-				}
 				if(studentList.size() > 1) { //if rescoring for all, prints name of student 
 					System.out.println("Enter a score for " + studentVar.name);
 				}
@@ -362,7 +352,7 @@ public class EditClassGradebook
 	}	
 	
 	public void getAllInfo() { //gets all assignments and total grade
-		System.out.println(this.theCourse.isWeighted + "\'s gradebook " + this.theCourse.courseName + "\n"); //get course
+		System.out.println(this.theCourse.owner + "\'s gradebook " + this.theCourse.courseName + "\n"); //get course
 		if(checkStudentMap()) {
 			for(Student key : this.theCourse.studentMap.values()) {
 				System.out.println(key.getAllInfo());
