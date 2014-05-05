@@ -135,11 +135,14 @@ public class Student
 						weightFactor = entry.getValue().finalWeight; //gets weight value
 						weightCount ++;
 						weightTotal += entry.getValue().getScore().numGrade; //adds score to running total
-					}else if(entry.getValue().finalWeight == weightFactor && (!entry.getValue().finalWeight.equals(weightFactor1))) { //if is first weight value, add
+					}else if(entry.getValue().finalWeight.equals(weightFactor)) { //if is first weight value, add
 						weightCount ++;
 						weightTotal += entry.getValue().getScore().numGrade;
-					}else if(((entry.getValue().finalWeight) != weightFactor) || (entry.getValue().finalWeight == weightFactor1)) { //if is second weight value
+					}else if((((entry.getValue().finalWeight) != weightFactor) && weightFactor1 == 0) || ((entry.getValue().finalWeight == weightFactor1) && weightFactor1 == 0)) { //if is second weight value & is first time around
 						weightFactor1 = entry.getValue().finalWeight;
+						weight1Count ++;
+						weight1Total += entry.getValue().getScore().numGrade;
+					}else if(((entry.getValue().finalWeight) != weightFactor) || (entry.getValue().finalWeight == weightFactor1)) {
 						weight1Count ++;
 						weight1Total += entry.getValue().getScore().numGrade;
 					}
@@ -150,7 +153,7 @@ public class Student
 				}
 			}	
 		} 
-		
+
 		if(finalOutput == true) { //if assignments are not weighted returns unweightAverage
 			unweightAverage = unweightTotal / unweightCount;
 			finalGradeVar = unweightAverage;
@@ -208,7 +211,7 @@ public class Student
 					+ gradeVar;  //gets letter grade
 				assignmentCount ++; //increments counter
 			}
-			this.grade = this.getGrade();
+			//this.grade = this.getGrade();
 			gradeOutput = this.grade.percentGrade + "\n"; //converts to string make next line easier
 			if(this.isPassing()) {  //converts passing bool into strings
 				passingVar = "passing";
