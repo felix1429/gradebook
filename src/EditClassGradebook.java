@@ -337,7 +337,7 @@ public class EditClassGradebook
 				}
 				
 				stringVar = getScore(); //gets new score
-				assignmentVar.rescoreAssignment(studentVar.getScore(stringVar)); //does actual rescoring
+				assignmentVar.rescoreAssignment(studentVar.getScore(stringVar)); //changes value
 				System.out.println("Score saved");
 			}	
 		}

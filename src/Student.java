@@ -36,6 +36,7 @@ public class Student
 		String tempNumStr = "";
 		Integer firstInt = 0;
 		Integer secondInt = 0;
+		Double tempScore = 0.0;
 		if(startScore == "0") {
 			return true;
 		}else {
@@ -61,6 +62,10 @@ public class Student
 				return false;
 			}
 			if(secondInt == null) { //makes sure that score input is valid
+				return false;
+			}
+			tempScore = (double)firstInt / (double)secondInt;
+			if(tempScore < 0 || tempScore > 1) { //checks to see if score is reasonable, ie not 7000% or something
 				return false;
 			}
 			return true;
@@ -191,6 +196,7 @@ public class Student
 		String gradeVar = "";
 		String passingVar;
 		Integer assignmentCount = 1;
+		this.grade = this.getGrade();
 		nameOutput = "Name: " + this.name + "\n"; //student's name
 		if(this.assignmentMap.isEmpty()) { //if no assignments
 			output = "No assignments added";
@@ -211,7 +217,6 @@ public class Student
 					+ gradeVar;  //gets letter grade
 				assignmentCount ++; //increments counter
 			}
-			//this.grade = this.getGrade();
 			gradeOutput = this.grade.percentGrade + "\n"; //converts to string make next line easier
 			if(this.isPassing()) {  //converts passing bool into strings
 				passingVar = "passing";
