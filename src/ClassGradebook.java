@@ -49,16 +49,17 @@ public class ClassGradebook
 	public void addAssignmentAll(Double startWeight, String startName, Boolean weightBool, String ... startScore) { //adds assignment to all students
 		Integer i = 0;
 		for(Student theStudent : this.studentMap.values()) { //loops through given scores
-			if(startScore[i] == "0" || startScore[i] == "-1") {
+			if(startScore[i].equals("0") || startScore[i].equals("-1")) {
 				switch(startScore[i]) {
-					case("0"):
-						boolVar = false;
-					case("-1"):
+					case "0":
 						boolVar = true;
+					case "-1":
+						boolVar = false;
 				}
 				theStudent.addAssignment("0", startName, weightBool, startWeight, boolVar);
-			}
-			theStudent.addAssignment(startScore[i], startName, weightBool, startWeight, true);
+			}else {
+				theStudent.addAssignment(startScore[i], startName, weightBool, startWeight, true);
+			}	
 			i ++;
 		}	
 	}	

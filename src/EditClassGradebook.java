@@ -229,9 +229,8 @@ public class EditClassGradebook
 					if(theEntry.getValue().testScore(scanInput)) { //tests if is valid score or not
 						if(scanInput.equals("0")) {
 							System.out.println("Is the assignment excused?");
-							boolVar = yesOrNo(sc.nextLine());
-							if(!boolVar) {
-								scanInput = Integer.toString(-1);
+							if(!yesOrNo(sc.nextLine())) {
+								scanInput = "-1";
 							}
 						}
 						scoreArray[i] = scanInput; //adds score to array

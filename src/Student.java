@@ -104,8 +104,8 @@ public class Student
 		if(!weightOrNot) { //if not weighted overrides argument and sets weight to one
 			startWeight = 1.0;
 		}
-		if(startScore.equals(0)) {
-			Assignment theNewOne = new MissingAssignment(scoreVar, this.testCount, startName, weightOrNot, startWeight, excused);
+		if(startScore == "0") {
+			MissingAssignment theNewOne = new MissingAssignment(scoreVar, this.testCount, startName, weightOrNot, startWeight, excused);
 			assignmentVar = theNewOne;
 		}else {
 			Assignment theNewOne = new Assignment(scoreVar, this.testCount, startName, weightOrNot, startWeight);
@@ -132,7 +132,8 @@ public class Student
 		Boolean finalOutput = false;
 		Double finalGradeVar;
 		for(Map.Entry<Integer, Assignment> entry : this.assignmentMap.entrySet()) { //loops through entries in map
-			if(entry.getValue() instanceof MissingAssignment && ((MissingAssignment) entry.getValue()).isExcused && entry.getValue().finalWeight.equals(0)) {
+			if((entry.getValue() instanceof MissingAssignment) && (((MissingAssignment) entry.getValue()).isExcused) && (entry.getValue().assignmentScore.numGrade.equals(0.0))) {
+				System.out.println("derp");
 				continue;	
 			}else {
 				if(entry.getValue().finalWeightBool.equals(true)) { //sees if assignment is weighted and loops to find weight value if so
@@ -202,11 +203,11 @@ public class Student
 			output = "No assignments added";
 		}else {
 			for(Assignment a : assignmentMap.values()) { //gets score of each assignment
-				if(a instanceof MissingAssignment) {
+				if((a instanceof MissingAssignment) && (a.assignmentScore.numGrade.equals(0.0))) {
 					if(((MissingAssignment) a).isExcused) {
-						gradeVar = "Missing but excused";
+						gradeVar = "Missing but excused\n";
 					}else if(!(((MissingAssignment) a).isExcused)){
-						gradeVar = "Missing and not excused";
+						gradeVar = "Missing and not excused\n";
 					}
 				}else {
 					gradeVar = a.assignmentScore.percentGrade + ", " + a.assignmentScore.letterGrade.gradePronoun + " " //gets percent score and pronoun
