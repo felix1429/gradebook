@@ -113,7 +113,7 @@ public class Student
 		}		
 		this.assignmentMap.put(this.testCount, assignmentVar); //adds assignment with number and score
 		this.testCount ++; //increments variable that keeps track of what number the assignment is for the student
-		this.grade = this.getGrade();
+		this.getGrade();
 	}
 	
 	

@@ -173,20 +173,24 @@ public class GradebookRun
 							temp.getStudentProfile();
 						
 						}else if(condensedInput.equals("addassignment")) {
-							while(true) {
-								System.out.println("For an individual or all students? (i/a)");
-								scanInput = sc.nextLine();
-								if(scanInput.equals("i") || scanInput.equals("I")) {
-									temp.addAssignment();
-									break;
-								}else if(scanInput.equals("a") || scanInput.equals("A")) {
-									temp.addAssignmentAll();
-									break;
-								}else {
-									System.out.println("Please pick either \"a\" for all students or \"i\" for one");
-								}
-							}	
-						
+							if(classGradebookVar.getNumStudents() == 1) { //if only one student added, does not prompt
+								temp.addAssignmentAll();
+							}else {
+								while(true) {
+									System.out.println("For an individual or all students? (i/a)");
+									scanInput = sc.nextLine();
+									if(scanInput.equals("i") || scanInput.equals("I")) {
+										temp.addAssignment();
+										break;
+									}else if(scanInput.equals("a") || scanInput.equals("A")) {
+										temp.addAssignmentAll();
+										break;
+									}else {
+										System.out.println("Please pick either \"a\" for all students or \"i\" for one");
+									}
+								}	
+							}
+								
 						}else if(condensedInput.equals("getgrade")) {
 							temp.getGrade();
 						
