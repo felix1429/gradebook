@@ -84,32 +84,7 @@ public class ClassGradebook
 			}
 			return false;
 		}	
-		/*
-		}else if(weightGroupSum() + inputWeight > 1) {
-			System.out.println("Assignment weights cannot add up to more than 1\n"
-					+ "Weights already in use are ");
-					for(int counter = 0;counter < weightGroup.size();counter ++) {
-						System.out.println(removeLeadingZeros((double)Math.round((weightGroup.get(counter)) * 100) / 100) + " ");
-					}
-			return false;
-		}else if(weightGroupSum() + inputWeight < 1) {
-			if(!(weightGroup.size() == 0)) {
-				System.out.println("Assignmnent weights must add up to 1\n"
-						+ "Weight already in use is ");
-				System.out.println(removeLeadingZeros((double)Math.round((weightGroup.get(0)) * 100) / 100) + " ");
-				return false;
-			}
-			weightGroup.add(inputWeight);
-			System.out.println("Assignment weights still add up to less than 1\n"
-					+ "You will need to add another weight value so that the total adds up to 1\n"
-					+ "Weights already in use are ");
-			System.out.print(removeLeadingZeros((double)Math.round((weightGroup.get(0)) * 100) / 100) + " ");
-			return true;
-		}else if(weightGroupSum() + inputWeight == 1) {
-			return true;
-		}
-		return false;
-		*/
+
 	}
 	
 	public String getStudents() {
