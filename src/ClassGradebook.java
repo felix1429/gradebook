@@ -53,8 +53,10 @@ public class ClassGradebook
 				switch(startScore[i]) {
 					case "0":
 						boolVar = true;
+						break;
 					case "-1":
 						boolVar = false;
+						break;
 				}
 				theStudent.addAssignment("0", startName, weightBool, startWeight, boolVar);
 			}else {

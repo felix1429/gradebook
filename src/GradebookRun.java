@@ -11,6 +11,7 @@ public class GradebookRun
 	public static ClassGradebook classGradebookVar;
 	public static Serialize serObj = new Serialize();
 	public static Gradebook gradeBk;
+	public static Map<Integer, String> loadedAssignments = new HashMap<Integer, String>();
 	
 	
 	public static Boolean yesOrNo(String input) { //loops until either y or n is input
@@ -67,16 +68,27 @@ public class GradebookRun
 	public static void load() { //for loading data
 		if(serObj.dir.list().length > 0) {
 			System.out.println("The following files are saved");
+			Integer count = 1;
 			for(File files : serObj.dir.listFiles()) {
-				System.out.println(files.getName());
+				loadedAssignments.put(count, files.getName());
+				System.out.println(count + ": " + files.getName());
+				count ++;
 			}
 			System.out.println("Which file would you like to load?");
 			input = sc.nextLine();
-			if(serObj.deserialize(input)) {
+			if(loadedAssignments.containsValue(input) || loadedAssignments.containsValue(input + ".ser")) {
+				serObj.deserialize(input.replaceAll(".ser", ""));
+				gradeBk = serObj.gradeBk;
+				System.out.println("Data loaded");
+			}else if(loadedAssignments.containsKey(Integer.parseInt(input))) {
+				String temp = loadedAssignments.get(Integer.parseInt(input));
+				if (temp.indexOf(".") > 0)
+				    temp = temp.substring(0, temp.lastIndexOf("."));
+				serObj.deserialize(temp);
 				gradeBk = serObj.gradeBk;
 				System.out.println("Data loaded");
 			}else {
-				System.out.println("whoops sorry dude");
+				System.out.println("whoops I done derped");
 			}
 		}else {
 			System.out.println("There are no files saved");

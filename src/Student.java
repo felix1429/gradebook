@@ -132,8 +132,7 @@ public class Student
 		Boolean finalOutput = false;
 		Double finalGradeVar;
 		for(Map.Entry<Integer, Assignment> entry : this.assignmentMap.entrySet()) { //loops through entries in map
-			if((entry.getValue() instanceof MissingAssignment) && (((MissingAssignment) entry.getValue()).isExcused) && (entry.getValue().assignmentScore.numGrade.equals(0.0))) {
-				System.out.println("derp");
+			if((entry.getValue() instanceof MissingAssignment) && (((MissingAssignment) entry.getValue()).getExcusedBool() == true) && (entry.getValue().assignmentScore.numGrade.equals(0.0))) {
 				continue;	
 			}else {
 				if(entry.getValue().finalWeightBool.equals(true)) { //sees if assignment is weighted and loops to find weight value if so
