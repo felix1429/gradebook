@@ -261,7 +261,7 @@ public class EditClassGradebook
 			}
 			System.out.println("What is the name of the assignment?");
 			stringVar = sc.nextLine();
-			if(this.theCourse.isWeighted) {
+			if(this.theCourse.isWeighted) {				
 				theStudent.addAssignment(scanInput, stringVar, true, getWeight(), boolVar);
 			}else {
 				theStudent.addAssignment(scanInput, stringVar, false, 1.0, boolVar);
@@ -280,8 +280,12 @@ public class EditClassGradebook
 	
 	public void rescoreAssignment() {
 		if(checkStudentMap()) {  //checks if there are students added
-			System.out.println("Would you like to rescore the assignment for all students or an individual? (a/i)");
-			scanInput = sc.nextLine();
+			if(this.theCourse.studentCount == 1) {
+				scanInput = "i";
+			}else {
+				System.out.println("Would you like to rescore the assignment for all students or an individual? (a/i)");
+				scanInput = sc.nextLine();
+			}	
 			if(scanInput.equals("a") || scanInput.equals("A")) { //if for all students
 				for(Map.Entry<String, Student> theEntry : this.theCourse.studentMap.entrySet()) {
 					studentList.add(theEntry.getValue()); //add student to list
@@ -351,7 +355,8 @@ public class EditClassGradebook
 	}	
 	
 	public void getAllInfo() { //gets all assignments and total grade
-		System.out.println(this.theCourse.owner + "\'s gradebook " + this.theCourse.courseName + "\n"); //get course
+		System.out.println(this.theCourse.owner + "\'s gradebook " + this.theCourse.courseName + "\n"
+				+ this.theCourse.studentCount + "students\n");
 		if(checkStudentMap()) {
 			for(Student key : this.theCourse.studentMap.values()) {
 				System.out.println(key.getAllInfo());
