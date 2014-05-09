@@ -31,7 +31,7 @@ public class EditClassGradebook
 				+ "remove a student by typing \"remove student\", get all of a student\'s information\n"
 				+ "by typing \"get student profile\", add an assignment by typing \"add assignment\",\n"
 				+ "get a student\'s grade by typing \"get grade\", get a list of all students by typing \"get all students\",\n"
-				+ "find if the class has assignment weighting by typing \"is it weighted\",\n"
+				+ "find if the class has assignment weighting by typing \"is it weighted\", rename a student by typing \"rename student\",\n"
 				+ "and get all the course\'s information by typing \"get all info\"\n"
 				+ "For help type \"help\"\n"
 				+ "Exit by typing \"exit\"");
@@ -180,6 +180,10 @@ public class EditClassGradebook
 	
 	public void getCourse() { //returns course
 		System.out.println(this.theCourse.courseName);
+		studentVar = getStudent();
+		System.out.println("What is the new name?");
+		scanInput = sc.nextLine();
+		studentVar.rename(scanInput);
 	}
 	
 	public void changeCourseName() {
@@ -188,6 +192,10 @@ public class EditClassGradebook
 		scanInput = sc.nextLine();
 		this.theCourse.changeCourseName(scanInput);
 		System.out.println("The course name has been changed to " + scanInput);
+	}
+	
+	public void renameStudent() {
+		getAllStudents();
 	}
 	
 	public void getAllStudents() {

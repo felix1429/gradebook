@@ -32,6 +32,12 @@ public class Student
 	}
 	
 	
+	public void rename(String tempName) {
+		this.name = tempName;
+	}
+	
+	
+	
 	public boolean testScore(String startScore) { //sees if string is valid score
 		String tempNumStr = "";
 		Integer firstInt = 0;
