@@ -322,7 +322,13 @@ public class EditClassGradebook
 					System.out.println(name);
 				}
 			}else if(scanInput.equals("i") || scanInput.equals("I")) { //if for individual 
-				studentVar = getStudent();
+				if(this.theCourse.studentCount != 1) {
+					studentVar = getStudent();
+				}else {
+					for(Student whatever : this.theCourse.studentMap.values()) {
+						studentVar = whatever;
+					}
+				}
 				for(Map.Entry<Integer, Assignment> theEntry : studentVar.assignmentMap.entrySet()) { //loops over student's assignments and prints number and grade
 					allAssignmentList.add(theEntry.getValue());
 				}
