@@ -210,9 +210,9 @@ public class Student
 			for(Assignment a : assignmentMap.values()) { //gets score of each assignment
 				if((a instanceof MissingAssignment) && (a.assignmentScore.numGrade.equals(0.0))) {
 					if(((MissingAssignment) a).isExcused) {
-						gradeVar = "Missing but excused\n";
+						gradeVar = "Missing, excused\n";
 					}else if(!(((MissingAssignment) a).isExcused)){
-						gradeVar = "Missing and not excused\n";
+						gradeVar = "Missing, not excused\n";
 					}
 				}else {
 					gradeVar = a.assignmentScore.percentGrade + ", " + a.assignmentScore.letterGrade.gradePronoun + " " //gets percent score and pronoun

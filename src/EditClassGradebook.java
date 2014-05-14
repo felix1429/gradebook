@@ -37,7 +37,7 @@ public class EditClassGradebook
 				+ "Exit by typing \"exit\"");
 		
 		if(this.theCourse.isFirstEdit) { //if first time editing gb, prompts for students
-			System.out.println("You can now add the initial batch of students.  Type \"done\" when finished"); //prompts user to input students
+			System.out.println("\nYou can now add the initial batch of students.  Type \"done\" when finished"); //prompts user to input students
 			while(true) {
 				addStudent();
 				System.out.println("Add another (y/n)?\n");
@@ -370,7 +370,7 @@ public class EditClassGradebook
 	
 	public void getAllInfo() { //gets all assignments and total grade
 		System.out.println(this.theCourse.owner + "\'s gradebook " + this.theCourse.courseName + "\n"
-				+ this.theCourse.studentCount + "students\n");
+				+ this.theCourse.studentCount + (this.theCourse.studentCount.equals(1) ? " student" : " students") + "\n");
 		if(checkStudentMap()) {
 			for(Student key : this.theCourse.studentMap.values()) {
 				System.out.println(key.getAllInfo());

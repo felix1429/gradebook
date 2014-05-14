@@ -75,21 +75,29 @@ public class GradebookRun
 				count ++;
 			}
 			System.out.println("Which file would you like to load?");
-			input = sc.nextLine();
-			if(loadedAssignments.containsValue(input) || loadedAssignments.containsValue(input + ".ser")) {
-				serObj.deserialize(input.replaceAll(".ser", ""));
-				gradeBk = serObj.gradeBk;
-				System.out.println("Data loaded");
-			}else if(loadedAssignments.containsKey(Integer.parseInt(input))) {
-				String temp = loadedAssignments.get(Integer.parseInt(input));
-				if (temp.indexOf(".") > 0)
-				    temp = temp.substring(0, temp.lastIndexOf("."));
-				serObj.deserialize(temp);
-				gradeBk = serObj.gradeBk;
-				System.out.println("Data loaded");
-			}else {
-				System.out.println("whoops I done derped");
-			}
+			while(true) {
+				input = sc.nextLine();
+				try {
+					if(loadedAssignments.containsValue(input) || loadedAssignments.containsValue(input + ".ser")) {
+						serObj.deserialize(input.replaceAll(".ser", ""));
+						gradeBk = serObj.gradeBk;
+						System.out.println("Data loaded");
+						break;
+					}else if(loadedAssignments.containsKey(Integer.parseInt(input))) {
+						String temp = loadedAssignments.get(Integer.parseInt(input));
+						if (temp.indexOf(".") > 0)
+						    temp = temp.substring(0, temp.lastIndexOf("."));
+						serObj.deserialize(temp);
+						gradeBk = serObj.gradeBk;
+						System.out.println("Data loaded");
+						break;
+					}else {
+						throw new NumberFormatException();
+					}
+				}catch(NumberFormatException blah) {
+					System.out.println("Not a valid file\nPick another");
+				}
+			}	
 		}else {
 			System.out.println("There are no files saved");
 		}
