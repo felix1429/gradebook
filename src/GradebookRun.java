@@ -47,9 +47,13 @@ public class GradebookRun
 					}
 				}
 			}else {
-				System.out.println(scanInput + " is not a valid course\n"
-						+ "Courses entered in gradebook are");
-				System.out.println(getCourses());
+				System.out.println(scanInput + " is not a valid course");
+				if(gradeBk.ClassMap.isEmpty()) {
+					System.out.println("There are no courses entered in the gradebook");
+				}else {
+					System.out.println("Courses entered in gradebook are");
+					System.out.println(getCourses());
+				}
 			}
 		}
 	}
@@ -166,87 +170,90 @@ public class GradebookRun
 				}	
 				
 				if(condensedInput.equals("addinformation") || (editVar.equals(true))) { //if user has prompted to edit right after creating, editVar will be true
-					if(editVar.equals(false)) {
-						classGradebookVar = getClass(gradeBk);
-					}	
-					EditClassGradebook temp = new EditClassGradebook(classGradebookVar); //creates new instance of EditClassGradebook
-					while(true) {
-						editVar = null;
-						sleepLocal();
-						if(sc.hasNext()) {
-							scanInput = sc.nextLine();
-							condensedInput = scanInput.replace(" ", "").toLowerCase(); //formats input string, making lowercase and removing spaces
-						}
-						if(condensedInput.equals("addstudent")) {
-							temp.addStudent();
-						
-						}else if(condensedInput.equals("getcourse")) {
-							temp.getCourse();
-						
-						}else if(condensedInput.equals("changecoursename")) {
-							temp.changeCourseName();
-						
-						}else if(condensedInput.equals("removestudent")) {
-							temp.removeStudent();
-						
-						}else if(condensedInput.equals("getstudentprofile")) {
-							temp.getStudentProfile();
-						
-						}else if(condensedInput.equals("addassignment")) {
-							if(classGradebookVar.getNumStudents() == 1) { //if only one student added, does not prompt
-								temp.addAssignmentAll();
-							}else {
-								while(true) {
-									System.out.println("For an individual or all students? (i/a)");
-									scanInput = sc.nextLine();
-									if(scanInput.equals("i") || scanInput.equals("I")) {
-										temp.addAssignment();
-										break;
-									}else if(scanInput.equals("a") || scanInput.equals("A")) {
-										temp.addAssignmentAll();
-										break;
-									}else {
-										System.out.println("Please pick either \"a\" for all students or \"i\" for one");
-									}
-								}	
+					if(!gradeBk.ClassMap.isEmpty()) {	
+						if(editVar.equals(false)) {
+							classGradebookVar = getClass(gradeBk);
+						}	
+						EditClassGradebook temp = new EditClassGradebook(classGradebookVar); //creates new instance of EditClassGradebook
+						while(true) {
+							editVar = null;
+							sleepLocal();
+							if(sc.hasNext()) {
+								scanInput = sc.nextLine();
+								condensedInput = scanInput.replace(" ", "").toLowerCase(); //formats input string, making lowercase and removing spaces
 							}
-								
-						}else if(condensedInput.equals("getgrade")) {
-							temp.getGrade();
-						
-						}else if(condensedInput.equals("getallstudents")) {
-							temp.getAllStudents();
-						
-						}else if(condensedInput.equals("getallinfo")) {
-							temp.getAllInfo();
-						
-						}else if(condensedInput.equals("rescoreassignment")) {
-							temp.rescoreAssignment();
-						
-						}else if(condensedInput.equals("isweighted")) {	
-							temp.isWeighted();
+							if(condensedInput.equals("addstudent")) {
+								temp.addStudent();
 							
-						}else if(condensedInput.equals("help")) {
-							temp.help();
-						
-						}else if(condensedInput.equals("exit")) {
-							if(temp.exit()) {  //prompts user to make sure they want to exit, returns boolean
-								temp = null; //destroys editClassGradebook object
-								break; //breaks from input loop
-							}	
-						}else {
-							System.out.println("Please input a valid command");
+							}else if(condensedInput.equals("getcourse")) {
+								temp.getCourse();
+							
+							}else if(condensedInput.equals("changecoursename")) {
+								temp.changeCourseName();
+							
+							}else if(condensedInput.equals("removestudent")) {
+								temp.removeStudent();
+							
+							}else if(condensedInput.equals("getstudentprofile")) {
+								temp.getStudentProfile();
+							
+							}else if(condensedInput.equals("addassignment")) {
+								if(classGradebookVar.getNumStudents() == 1) { //if only one student added, does not prompt
+									temp.addAssignmentAll();
+								}else {
+									while(true) {
+										System.out.println("For an individual or all students? (i/a)");
+										scanInput = sc.nextLine();
+										if(scanInput.equals("i") || scanInput.equals("I")) {
+											temp.addAssignment();
+											break;
+										}else if(scanInput.equals("a") || scanInput.equals("A")) {
+											temp.addAssignmentAll();
+											break;
+										}else {
+											System.out.println("Please pick either \"a\" for all students or \"i\" for one");
+										}
+									}	
+								}
+									
+							}else if(condensedInput.equals("getgrade")) {
+								temp.getGrade();
+							
+							}else if(condensedInput.equals("getallstudents")) {
+								temp.getAllStudents();
+							
+							}else if(condensedInput.equals("getallinfo")) {
+								temp.getAllInfo();
+							
+							}else if(condensedInput.equals("rescoreassignment")) {
+								temp.rescoreAssignment();
+							
+							}else if(condensedInput.equals("isweighted")) {	
+								temp.isWeighted();
+								
+							}else if(condensedInput.equals("help")) {
+								temp.help();
+							
+							}else if(condensedInput.equals("exit")) {
+								if(temp.exit()) {  //prompts user to make sure they want to exit, returns boolean
+									temp = null; //destroys editClassGradebook object
+									break; //breaks from input loop
+								}	
+							}else {
+								System.out.println("Please input a valid command");
+							}
 						}
+						System.out.println("Remember:\n"
+								+ "Add a course by typing \"add course\"\n"
+								+ "Add information by typing \"addinformation\"\n"
+								+ "Get a courses info by typing \"get course info\"\n"
+								+ "Get the names of all courses by typing \"get courses\"\n"
+								+ "Get the name of the teacher by typing \"get teacher name\"\n"
+								+ "Change the owner of the gradebook by typing \"change owner\"");
+					}else {
+						System.out.println("There are no courses entered in the gradebook");
 					}
-					System.out.println("Remember:\n"
-							+ "Add a course by typing \"add course\"\n"
-							+ "Add information by typing \"addinformation\"\n"
-							+ "Get a courses info by typing \"get course info\"\n"
-							+ "Get the names of all courses by typing \"get courses\"\n"
-							+ "Get the name of the teacher by typing \"get teacher name\"\n"
-							+ "Change the owner of the gradebook by typing \"change owner\"");
-
-					
+						
 				}else if(condensedInput.equals("getcourses")) { //prints courses that are currently entered
 					if(gradeBk.ClassMap.isEmpty()) {
 						System.out.println("There are no courses entered in the gradebook");
