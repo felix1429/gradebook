@@ -15,6 +15,7 @@ public class GradebookRun
 	
 	
 	public static Boolean yesOrNo(String input) { //loops until either y or n is input
+<<<<<<< HEAD
 		while(true) {
             switch(input.toLowerCase()) {
                 case "y":
@@ -25,6 +26,17 @@ public class GradebookRun
                     System.out.println("Please pick either y or n");
                     input = sc.nextLine();
             }
+=======
+		while(true) { 
+			if(input.equals("y") || input.equals("Y"))	{
+				return true;
+			}else if(input.equals("n") || input.equals("N")) {
+				return false;
+			}else {
+				System.out.println("Please pick either y or n");
+				input = sc.nextLine();
+			}
+>>>>>>> 4fb9597d7628765b6471cb66e1db67ed04765f0a
 		}
 	}
 	
@@ -60,6 +72,10 @@ public class GradebookRun
 	}
 	
 	public static void save() { //methods for serializing data
+<<<<<<< HEAD
+=======
+		
+>>>>>>> 4fb9597d7628765b6471cb66e1db67ed04765f0a
 		System.out.println("What name would you like to save the file as?");
 		input = sc.nextLine();
 		if(serObj.serialize(input, gradeBk)) { //notice if
@@ -161,7 +177,11 @@ public class GradebookRun
 					editVar = yesOrNo(scanInput); //if yes, user has prompted to edit the gradebook
 					if(editVar.equals(true)) { //if editVar is true, gets ClassGradebook from name
 						for(Map.Entry<String, ClassGradebook> theEntry : gradeBk.ClassMap.entrySet()) {
+<<<<<<< HEAD
 							if(theEntry.getKey().equals(nameVar)){
+=======
+							if(theEntry.getKey() == nameVar){
+>>>>>>> 4fb9597d7628765b6471cb66e1db67ed04765f0a
 								classGradebookVar = theEntry.getValue();
 								break;
 							}
@@ -175,14 +195,19 @@ public class GradebookRun
 							classGradebookVar = getClass(gradeBk);
 						}	
 						EditClassGradebook temp = new EditClassGradebook(classGradebookVar); //creates new instance of EditClassGradebook
+<<<<<<< HEAD
                         boolean running = true;
 						while(running) {
+=======
+						while(true) {
+>>>>>>> 4fb9597d7628765b6471cb66e1db67ed04765f0a
 							editVar = null;
 							sleepLocal();
 							if(sc.hasNext()) {
 								scanInput = sc.nextLine();
 								condensedInput = scanInput.replace(" ", "").toLowerCase(); //formats input string, making lowercase and removing spaces
 							}
+<<<<<<< HEAD
                             switch(condensedInput) {
                                 case "addstudent":
                                     temp.addStudent();
@@ -262,6 +287,68 @@ public class GradebookRun
                                 default:
                                     System.out.println("Please input a valid command");
                                 }
+=======
+							if(condensedInput.equals("addstudent")) {
+								temp.addStudent();
+							
+							}else if(condensedInput.equals("getcourse")) {
+								temp.getCourse();
+							
+							}else if(condensedInput.equals("changecoursename")) {
+								temp.changeCourseName();
+							
+							}else if(condensedInput.equals("removestudent")) {
+								temp.removeStudent();
+							
+							}else if(condensedInput.equals("getstudentprofile")) {
+								temp.getStudentProfile();
+							
+							}else if(condensedInput.equals("addassignment")) {
+								if(classGradebookVar.getNumStudents() == 1) { //if only one student added, does not prompt
+									temp.addAssignmentAll();
+								}else {
+									while(true) {
+										System.out.println("For an individual or all students? (i/a)");
+										scanInput = sc.nextLine();
+										if(scanInput.equals("i") || scanInput.equals("I")) {
+											temp.addAssignment();
+											break;
+										}else if(scanInput.equals("a") || scanInput.equals("A")) {
+											temp.addAssignmentAll();
+											break;
+										}else {
+											System.out.println("Please pick either \"a\" for all students or \"i\" for one");
+										}
+									}	
+								}
+									
+							}else if(condensedInput.equals("getgrade")) {
+								temp.getGrade();
+							
+							}else if(condensedInput.equals("getallstudents")) {
+								temp.getAllStudents();
+							
+							}else if(condensedInput.equals("getallinfo")) {
+								temp.getAllInfo();
+							
+							}else if(condensedInput.equals("rescoreassignment")) {
+								temp.rescoreAssignment();
+							
+							}else if(condensedInput.equals("isweighted")) {	
+								temp.isWeighted();
+								
+							}else if(condensedInput.equals("help")) {
+								temp.help();
+							
+							}else if(condensedInput.equals("exit")) {
+								if(temp.exit()) {  //prompts user to make sure they want to exit, returns boolean
+									temp = null; //destroys editClassGradebook object
+									break; //breaks from input loop
+								}	
+							}else {
+								System.out.println("Please input a valid command");
+							}
+>>>>>>> 4fb9597d7628765b6471cb66e1db67ed04765f0a
 						}
 						System.out.println("Remember:\n"
 								+ "Add a course by typing \"add course\"\n"
@@ -328,7 +415,11 @@ public class GradebookRun
 					System.out.println("Please input a valid command");
 				}
 				editVar = false; //resets values of vars for each iteration
+<<<<<<< HEAD
 				condensedInput = "";
+=======
+				condensedInput.equals("");
+>>>>>>> 4fb9597d7628765b6471cb66e1db67ed04765f0a
 			}
 		}finally { //closes scanner on exit
 			sc.close();

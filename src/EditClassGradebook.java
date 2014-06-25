@@ -42,7 +42,13 @@ public class EditClassGradebook
 				addStudent();
 				System.out.println("Add another (y/n)?\n");
 				scanInput = sc.nextLine();
+<<<<<<< HEAD
 				if(!(GradebookRun.yesOrNo(scanInput))) { //prompts for y or n
+=======
+				if(GradebookRun.yesOrNo(scanInput)) { //prompts for y or n
+					continue;
+				}else {
+>>>>>>> 4fb9597d7628765b6471cb66e1db67ed04765f0a
 					System.out.println("You can now begin to use the gradebook as explained");
 					break;
 				}
@@ -80,7 +86,15 @@ public class EditClassGradebook
 	}
 	
 	private Boolean isStudentInMap(Student theStudent) { //returns true if student is input into map, false otherwise
+<<<<<<< HEAD
 		return this.theCourse.studentMap.containsValue(theStudent);
+=======
+		if(this.theCourse.studentMap.containsValue(theStudent)) {
+			return true;
+		}else {
+			return false;
+		}
+>>>>>>> 4fb9597d7628765b6471cb66e1db67ed04765f0a
 	}
 	
 	private String getStudentName(Student theStudent) { //gets student name from Student object
@@ -152,6 +166,7 @@ public class EditClassGradebook
 	}
 	
 	public static Boolean yesOrNo(String scanInput) { //loops until either y or n is input
+<<<<<<< HEAD
         while(true) {
             switch(scanInput.toLowerCase()) {
                 case "y":
@@ -164,6 +179,18 @@ public class EditClassGradebook
                     System.out.println("Please pick \"y\" or \"n\"");
             }
         }
+=======
+		while(true) { 
+			if(scanInput.equals("y") || scanInput.equals("Y"))	{
+				return true;
+			}else if(scanInput.equals("n") || scanInput.equals("N")) {
+				return false;
+			}else {
+				System.out.println("Please pick either y or n");
+				scanInput = sc.nextLine();
+			}
+		}
+>>>>>>> 4fb9597d7628765b6471cb66e1db67ed04765f0a
 	}
 	
 	public void addStudent() { //gets student name and then creates object
@@ -250,7 +277,11 @@ public class EditClassGradebook
 			if(!boolVar){ //if gradebook is not weighted, sets weight values
 				this.theCourse.addAssignmentAll(1.0, stringVar, false, scoreArray);
 			}else {
+<<<<<<< HEAD
 				this.theCourse.addAssignmentAll(getWeight(), stringVar, true, scoreArray); //add assignments with scoreArray scores
+=======
+				this.theCourse.addAssignmentAll(getWeight(), stringVar, boolVar, scoreArray); //add assignments with scoreArray scores
+>>>>>>> 4fb9597d7628765b6471cb66e1db67ed04765f0a
 			}	
 			System.out.println("Assignments added\n");
 		}	
@@ -259,7 +290,11 @@ public class EditClassGradebook
 	public void addAssignment(Student theStudent) { //adds assignment if student provided
 		if(isStudentInMap(theStudent)) {
 			scanInput = getScore(); //not scanner, just using variable that is a string
+<<<<<<< HEAD
 			if(scanInput.equals("0")) {
+=======
+			if(scanInput.equals(0)) {
+>>>>>>> 4fb9597d7628765b6471cb66e1db67ed04765f0a
 				System.out.println("Is the assignment excused?");
 				boolVar = yesOrNo(sc.nextLine());
 			}
@@ -340,7 +375,11 @@ public class EditClassGradebook
 			for(Student theStudent : studentList) {
 				studentVar = theStudent;
 				for(Assignment iter : allAssignmentList) {
+<<<<<<< HEAD
 					if(scanInput.equals(iter.name) || scanInput.equals(iter.assignmentNumber.toString())) {
+=======
+					if(scanInput.equals(iter.name) || scanInput.equals(iter.assignmentNumber)) {
+>>>>>>> 4fb9597d7628765b6471cb66e1db67ed04765f0a
 						assignmentVar = iter;
 						break;
 					}	
@@ -387,9 +426,25 @@ public class EditClassGradebook
 		System.out.println("Are you finished editing " + this.theCourse.courseName + " (y/n)?");
 		sleepLocal();
 		scanInput = sc.nextLine();
+<<<<<<< HEAD
         return(yesOrNo(scanInput));
 	}
 
+=======
+		while(true) {
+			if(scanInput.equals("y") || scanInput.equals("Y")) {
+				System.out.println("Editing complete");
+				return true;
+			}else if(scanInput.equals("n") || scanInput.equals("N")) {
+				System.out.println("Continue editing");
+				return false;
+			}else {
+				System.out.println("Please pick \"y\" or \"n\"");
+			}
+		}
+	}
+	
+>>>>>>> 4fb9597d7628765b6471cb66e1db67ed04765f0a
 	public void help() { //reprints instructions
 		System.out.println("To add a student type \"add student\"\n"
 				+ "To add an assignment type \"add assignemtn\"\n"

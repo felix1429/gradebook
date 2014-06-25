@@ -10,7 +10,10 @@ public class Serialize
 	private static final long serialVersionUID = 1L;
 	String homePath = "C:/Users/Hennig/workspace/Gradebook/data/";
 	String ITFPPath = "C:/Users/216003/Java/eclipseWindows/WorkbenchProjects/Gradebook/data/";
+<<<<<<< HEAD
     String laptopPath = "D:/Workspace/gradebook/data";
+=======
+>>>>>>> 4fb9597d7628765b6471cb66e1db67ed04765f0a
 	List<String> pathList = new ArrayList<String>(); //list which will contain paths of various places on different computers I save crap in
 	Gradebook gradeBk;
 	String path;
@@ -19,7 +22,10 @@ public class Serialize
 	public Serialize() { //initializes var
 		pathList.add(homePath); 
 		pathList.add(ITFPPath);
+<<<<<<< HEAD
         pathList.add(laptopPath);
+=======
+>>>>>>> 4fb9597d7628765b6471cb66e1db67ed04765f0a
 		for(String i : pathList) { //tests all paths in list and if finds legit one, sets it to 'path' var
 			File file = new File(i);
 			file.mkdir();
