@@ -10,7 +10,7 @@ public class Serialize
 	private static final long serialVersionUID = 1L;
 	String homePath = "C:/Users/Hennig/workspace/Gradebook/data/";
 	String ITFPPath = "C:/Users/216003/Java/eclipseWindows/WorkbenchProjects/Gradebook/data/";
-    String laptopPath = "D:/Workspace/gradebook/data";
+    	String laptopPath = "D:/Workspace/gradebook/data";
 	List<String> pathList = new ArrayList<String>(); //list which will contain paths of various places on different computers I save crap in
 	Gradebook gradeBk;
 	String path;
