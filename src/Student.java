@@ -75,7 +75,7 @@ public class Student
 				return false;
 			}
 			return true;
-		}	
+		}
 	}
 	
 	
@@ -85,7 +85,7 @@ public class Student
 		Score aScore;
 		Integer firstInt = 0;
 		Integer secondInt = 0;
-		if(startScore == "0") {
+		if(startScore.equals("0")) {
 			aScore = new Score(0.0);
 			return aScore;
 		}else {
@@ -110,7 +110,7 @@ public class Student
 		if(!weightOrNot) { //if not weighted overrides argument and sets weight to one
 			startWeight = 1.0;
 		}
-		if(startScore == "0") {
+		if(startScore.equals("0")) {
 			MissingAssignment theNewOne = new MissingAssignment(scoreVar, this.testCount, startName, weightOrNot, startWeight, excused);
 			assignmentVar = theNewOne;
 		}else {
@@ -138,7 +138,7 @@ public class Student
 		Boolean finalOutput = false;
 		Double finalGradeVar;
 		for(Map.Entry<Integer, Assignment> entry : this.assignmentMap.entrySet()) { //loops through entries in map
-			if((entry.getValue() instanceof MissingAssignment) && (((MissingAssignment) entry.getValue()).getExcusedBool() == true) && (entry.getValue().assignmentScore.numGrade.equals(0.0))) {
+			if((entry.getValue() instanceof MissingAssignment) && (((MissingAssignment) entry.getValue()).getExcusedBool()) && (entry.getValue().assignmentScore.numGrade.equals(0.0))) {
 				continue;	
 			}else {
 				if(entry.getValue().finalWeightBool.equals(true)) { //sees if assignment is weighted and loops to find weight value if so
@@ -165,7 +165,7 @@ public class Student
 			}	
 		} 
 
-		if(finalOutput == true) { //if assignments are not weighted returns unweightAverage
+		if(finalOutput) { //if assignments are not weighted returns unweightAverage
 			unweightAverage = unweightTotal / unweightCount;
 			finalGradeVar = unweightAverage;
 		}else {			
@@ -185,11 +185,7 @@ public class Student
 	
 	public Boolean isPassing() { //returns true if grade is greater than 60%
 		scoreVar = this.getGrade();
-		if(this.scoreVar.numGrade >= .6) {
-			return true;
-		}else {
-			return false;
-		}
+		return (this.scoreVar.numGrade >= .6);
 	}
 	
 	

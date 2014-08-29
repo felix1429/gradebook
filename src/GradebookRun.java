@@ -15,16 +15,17 @@ public class GradebookRun
 	
 	
 	public static Boolean yesOrNo(String input) { //loops until either y or n is input
-		while(true) { 
-			if(input.equals("y") || input.equals("Y"))	{
-				return true;
-			}else if(input.equals("n") || input.equals("N")) {
-				return false;
-			}else {
-				System.out.println("Please pick either y or n");
-				input = sc.nextLine();
-			}
-		}
+		while(true) {
+            switch(input.toLowerCase()) {
+                case "y":
+                    return true;
+                case "n":
+                    return false;
+                default:
+                    System.out.println("Please pick either y or n");
+                    input = sc.nextLine();
+            }
+        }
 	}
 	
 	private static String getCourses() {
@@ -59,7 +60,6 @@ public class GradebookRun
 	}
 	
 	public static void save() { //methods for serializing data
-		
 		System.out.println("What name would you like to save the file as?");
 		input = sc.nextLine();
 		if(serObj.serialize(input, gradeBk)) { //notice if
@@ -161,7 +161,7 @@ public class GradebookRun
 					editVar = yesOrNo(scanInput); //if yes, user has prompted to edit the gradebook
 					if(editVar.equals(true)) { //if editVar is true, gets ClassGradebook from name
 						for(Map.Entry<String, ClassGradebook> theEntry : gradeBk.ClassMap.entrySet()) {
-							if(theEntry.getKey() == nameVar){
+							if(theEntry.getKey().equals(nameVar)){
 								classGradebookVar = theEntry.getValue();
 								break;
 							}
@@ -175,73 +175,93 @@ public class GradebookRun
 							classGradebookVar = getClass(gradeBk);
 						}	
 						EditClassGradebook temp = new EditClassGradebook(classGradebookVar); //creates new instance of EditClassGradebook
-						while(true) {
+                        boolean running = true;
+						while(running) {
 							editVar = null;
 							sleepLocal();
 							if(sc.hasNext()) {
 								scanInput = sc.nextLine();
 								condensedInput = scanInput.replace(" ", "").toLowerCase(); //formats input string, making lowercase and removing spaces
 							}
-							if(condensedInput.equals("addstudent")) {
-								temp.addStudent();
-							
-							}else if(condensedInput.equals("getcourse")) {
-								temp.getCourse();
-							
-							}else if(condensedInput.equals("changecoursename")) {
-								temp.changeCourseName();
-							
-							}else if(condensedInput.equals("removestudent")) {
-								temp.removeStudent();
-							
-							}else if(condensedInput.equals("getstudentprofile")) {
-								temp.getStudentProfile();
-							
-							}else if(condensedInput.equals("addassignment")) {
-								if(classGradebookVar.getNumStudents() == 1) { //if only one student added, does not prompt
-									temp.addAssignmentAll();
-								}else {
-									while(true) {
-										System.out.println("For an individual or all students? (i/a)");
-										scanInput = sc.nextLine();
-										if(scanInput.equals("i") || scanInput.equals("I")) {
-											temp.addAssignment();
-											break;
-										}else if(scanInput.equals("a") || scanInput.equals("A")) {
-											temp.addAssignmentAll();
-											break;
-										}else {
-											System.out.println("Please pick either \"a\" for all students or \"i\" for one");
-										}
-									}	
-								}
-									
-							}else if(condensedInput.equals("getgrade")) {
-								temp.getGrade();
-							
-							}else if(condensedInput.equals("getallstudents")) {
-								temp.getAllStudents();
-							
-							}else if(condensedInput.equals("getallinfo")) {
-								temp.getAllInfo();
-							
-							}else if(condensedInput.equals("rescoreassignment")) {
-								temp.rescoreAssignment();
-							
-							}else if(condensedInput.equals("isweighted")) {	
-								temp.isWeighted();
-								
-							}else if(condensedInput.equals("help")) {
-								temp.help();
-							
-							}else if(condensedInput.equals("exit")) {
-								if(temp.exit()) {  //prompts user to make sure they want to exit, returns boolean
-									temp = null; //destroys editClassGradebook object
-									break; //breaks from input loop
-								}	
-							}else {
-								System.out.println("Please input a valid command");
-							}
+                            switch(condensedInput) {
+                                case "addstudent":
+                                    temp.addStudent();
+                                    break;
+
+                                case "getcourse":
+                                    temp.getCourse();
+                                    break;
+
+                                case "changecoursename":
+                                    temp.changeCourseName();
+                                    break;
+
+                                case "removestudent":
+                                    temp.removeStudent();
+                                    break;
+
+                                case "getstudentprofile":
+                                    temp.getStudentProfile();
+                                    break;
+
+                                case "addassignment":
+                                    if(classGradebookVar.getNumStudents() == 1) { //if only one student added, does not prompt
+                                        temp.addAssignmentAll();
+                                    }else {
+                                        boolean subRun = true;
+                                        while(subRun) {
+                                            System.out.println("For an individual or all students? (i/a)");
+                                            scanInput = sc.nextLine();
+                                            switch(scanInput.toLowerCase()) {
+                                                case "i":
+                                                    temp.addAssignment();
+                                                    subRun = false;
+                                                    break;
+                                                case "a":
+                                                    temp.addAssignmentAll();
+                                                    subRun = false;
+                                                    break;
+                                                default:
+                                                    System.out.println("Please pick either \"a\" for all students or \"i\" for one");
+                                            }
+                                        }
+                                    }
+                                    break;
+
+                                case "getgrade":
+                                    temp.getGrade();
+                                    break;
+
+                                case "getallstudents":
+                                    temp.getAllStudents();
+                                    break;
+
+                                case "getallinfo":
+                                    temp.getAllInfo();
+                                    break;
+
+                                case "rescoreassignment":
+                                    temp.rescoreAssignment();
+                                    break;
+
+                                case "isweighted":
+                                    temp.isWeighted();
+                                    break;
+
+                                case "help":
+                                    temp.help();
+                                    break;
+
+                                case "exit":
+                                    if(temp.exit()) {  //prompts user to make sure they want to exit, returns boolean
+                                        temp = null; //destroys editClassGradebook object
+                                        running = false; //breaks from input loop
+                                    }
+                                    break;
+
+                                default:
+                                    System.out.println("Please input a valid command");
+                                }
 						}
 						System.out.println("Remember:\n"
 								+ "Add a course by typing \"add course\"\n"
@@ -308,7 +328,7 @@ public class GradebookRun
 					System.out.println("Please input a valid command");
 				}
 				editVar = false; //resets values of vars for each iteration
-				condensedInput.equals("");
+				condensedInput = "";
 			}
 		}finally { //closes scanner on exit
 			sc.close();
